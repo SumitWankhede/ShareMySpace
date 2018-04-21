@@ -8,29 +8,99 @@ import java.util.List;
 
 @Entity
 public class Room {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int  id;
 
-
     @NotNull
-    private int price;
-    private int utility;
+    private double roomPrice;
+    private double utilitiesPrice;
 
     @NotNull
     @Enumerated(EnumType.STRING)
     private RoomType roomType;
 
-    private double roomSquare;
+    private double area;
 
     private int furnishedStatus;
 
     private Date availableDate;
 
-    private int minMonths;
+    private int noOfRoomates;
 
-    private int roommateCount;
+    private List<Byte[]> images;
 
-    private Byte[] poster;
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public double getRoomPrice() {
+		return roomPrice;
+	}
+
+	public void setRoomPrice(double roomPrice) {
+		this.roomPrice = roomPrice;
+	}
+
+	public double getUtilitiesPrice() {
+		return utilitiesPrice;
+	}
+
+	public void setUtilitiesPrice(double utilitiesPrice) {
+		this.utilitiesPrice = utilitiesPrice;
+	}
+
+	public RoomType getRoomType() {
+		return roomType;
+	}
+
+	public void setRoomType(RoomType roomType) {
+		this.roomType = roomType;
+	}
+
+	public double getArea() {
+		return area;
+	}
+
+	public void setArea(double area) {
+		this.area = area;
+	}
+
+	public int getFurnishedStatus() {
+		return furnishedStatus;
+	}
+
+	public void setFurnishedStatus(int furnishedStatus) {
+		this.furnishedStatus = furnishedStatus;
+	}
+
+	public Date getAvailableDate() {
+		return availableDate;
+	}
+
+	public void setAvailableDate(Date availableDate) {
+		this.availableDate = availableDate;
+	}
+
+	public int getNoOfRoomates() {
+		return noOfRoomates;
+	}
+
+	public void setNoOfRoomates(int noOfRoomates) {
+		this.noOfRoomates = noOfRoomates;
+	}
+
+	public List<Byte[]> getImages() {
+		return images;
+	}
+
+	public void setImages(List<Byte[]> images) {
+		this.images = images;
+	}
+    
+    
 }
