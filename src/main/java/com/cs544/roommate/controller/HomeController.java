@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class HomeController {
     @RequestMapping(value = {"/","/home","/index"})
     public ModelAndView home(){
-        ModelAndView mv = new ModelAndView("home");
+        ModelAndView mv = new ModelAndView("index");
         return mv;
     }
 }
