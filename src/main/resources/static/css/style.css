@@ -284,6 +284,35 @@ select option{
 .date_btn form input[type="submit"]:hover{
 	background: #228AC6;
 }
+
+.stay_date #datepicker{
+	background:#fff url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png)  100% 50% no-repeat ;
+}
+
+.stay_date #datepicker{
+	width: 88%;
+	color: #858585;
+	font-size: 0.8725em;
+	padding: 8px;
+	outline: none;
+	margin: 5px 0;
+	font-family: 'Open Sans', sans-serif;
+	border: 1px solid #DFDFDF;
+	box-shadow: inset 0 0 2px rgb(236, 236, 236);
+	-webkit-box-shadow: inset 0 0 2px rgb(236, 236, 236);
+	-moz-box-shadow: inset 0 0 2px rgb(236, 236, 236);
+	-o-box-shadow: inset 0 0 2px rgb(236, 236, 236);
+	-webkit-appearance: none;
+  	background:#fff url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png)  100% 50% no-repeat ;
+}
+.stay_date input [type="text"]::-webkit-inner-spin-button {
+  display: none;
+}
+.stay_date input [type="text"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+}
+
+
 /* start grids_of_3 */
 .grids_of_3{
 	display: block;
@@ -1110,3 +1139,4 @@ span.next:hover {
 		width: 50% !important;
 	}
 }
+
