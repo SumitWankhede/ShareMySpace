@@ -15,7 +15,7 @@ public class Lanloard extends  User{
 	private String userType;
 	
 	@OneToMany
-    private List<Property> propertyList = new ArrayList<>();
+    private List<Property> propertyList = new ArrayList<Property>();
 	
 	public String getUserType() {
 		return userType;

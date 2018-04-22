@@ -27,7 +27,7 @@ public class Property {
     private Date updatedDate;
 
     @OneToMany
-    private List<Review> reviews = new ArrayList<>();
+    private List<Review> reviews = new ArrayList<Review>();
 
     @Enumerated(EnumType.STRING)
     private PropertyType propertyType;
