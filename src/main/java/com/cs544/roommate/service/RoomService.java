@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cs544.roommate.domain.Room;
-import com.cs544.roommate.domain.dao.IRoomDao;
+import com.cs544.roommate.repository.IRoomDao;
 
 @Service
 public class RoomService implements IRoomService {
