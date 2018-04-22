@@ -3,6 +3,8 @@ package com.cs544.roommate.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+
+
 import java.util.Date;
 import java.util.List;
 
@@ -24,10 +26,12 @@ public class Room {
 
     private int furnishedStatus;
 
+    @Temporal(TemporalType.DATE)
     private Date availableDate;
 
     private int noOfRoomates;
 
+    @Lob
     private List<Byte[]> images;
 
 	public int getId() {

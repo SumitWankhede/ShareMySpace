@@ -1,9 +1,19 @@
 package com.cs544.roommate.domain;
 
+import javax.annotation.Generated;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.MappedSuperclass;
 
-@MappedSuperclass
-abstract class User {
+@Entity
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+public abstract class User {
+	
+	@Id
+	@GeneratedValue
 	private int id;
     private String firstname;
     private String lastname;

@@ -10,12 +10,14 @@ public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-
     private String reviews;
     private Date date;
 
     @ManyToOne
     private Property property;
+    
+    @OneToOne
+    private Tanent user;
 
 	public int getId() {
 		return id;
@@ -48,7 +50,14 @@ public class Review {
 	public void setProperty(Property property) {
 		this.property = property;
 	}
-    
+
+	public Tanent getUser() {
+		return user;
+	}
+
+	public void setUser(Tanent user) {
+		this.user = user;
+	}
     
 
 }

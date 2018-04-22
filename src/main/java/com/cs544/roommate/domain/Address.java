@@ -4,15 +4,15 @@ import javax.persistence.*;
 
 @Entity
 public class Address {
+	
 	@Id
-	@GeneratedValue
 	private int id;
 	private String street;
 	private String city;
 	private String state;
 	private String zip;
 	
-	@OneToOne
+	@OneToOne(mappedBy = "address")
 	private Property property;
 	
 	public int getId() {
