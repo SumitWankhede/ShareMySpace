@@ -8,11 +8,8 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 
-@Entity
+@Embeddable
 public class Room {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int  id;
 
     @NotNull
     private double roomPrice;
@@ -29,18 +26,10 @@ public class Room {
     @Temporal(TemporalType.DATE)
     private Date availableDate;
 
-    private int noOfRoomates;
+    private int noOfRoommates;
 
     @Lob
-    private List<Byte[]> images;
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
+    private Byte[] image;
 
 	public double getRoomPrice() {
 		return roomPrice;
@@ -91,20 +80,29 @@ public class Room {
 	}
 
 	public int getNoOfRoomates() {
-		return noOfRoomates;
+		return noOfRoommates;
 	}
 
 	public void setNoOfRoomates(int noOfRoomates) {
-		this.noOfRoomates = noOfRoomates;
+		this.noOfRoommates = noOfRoomates;
 	}
 
-	public List<Byte[]> getImages() {
-		return images;
+	public int getNoOfRoommates() {
+		return noOfRoommates;
 	}
 
-	public void setImages(List<Byte[]> images) {
-		this.images = images;
+	public void setNoOfRoommates(int noOfRoommates) {
+		this.noOfRoommates = noOfRoommates;
 	}
-    
+
+	public Byte[] getImage() {
+		return image;
+	}
+
+	public void setImage(Byte[] image) {
+		this.image = image;
+	}
+
+	
     
 }

@@ -13,11 +13,9 @@ public class Property {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id")
-    private Address address;
+   
     private String title;
-    private String decription;
+    private String description;
 
     private int totalBedRooms;
     private int totalBathRooms;
@@ -25,13 +23,23 @@ public class Property {
 
     private Date createdDate;
     private Date updatedDate;
+    
+    @Embedded
+    private Room room;
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id")
+    private Address address;
 
     @OneToMany
-    private List<Review> reviews = new ArrayList<Review>();
+    private List<Review> reviews = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private PropertyType propertyType;
 
+    public Property() {
+    	this.updatedDate = new Date();
+    }
 	public Long getId() {
 		return id;
 	}
@@ -46,6 +54,7 @@ public class Property {
 
 	public void setAddress(Address address) {
 		this.address = address;
+		address.setProperty(this);
 	}
 
 	public String getTitle() {
@@ -56,12 +65,13 @@ public class Property {
 		this.title = title;
 	}
 
-	public String getDecription() {
-		return decription;
+
+	public String getDescription() {
+		return description;
 	}
 
-	public void setDecription(String decription) {
-		this.decription = decription;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public int getTotalBedRooms() {
@@ -119,11 +129,14 @@ public class Property {
 	public void setPropertyType(PropertyType propertyType) {
 		this.propertyType = propertyType;
 	}
-    
 
-    //@OneToMany(mappedBy = "property")
-    //private List<Amenities> amenities = new ArrayList<>();
-    
-    
+	public Room getRoom() {
+		return room;
+	}
+
+	public void setRoom(Room room) {
+		this.room = room;
+	}
+  
 
 }

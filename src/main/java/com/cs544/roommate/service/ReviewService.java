@@ -13,7 +13,7 @@ import com.cs544.roommate.domain.User;
 import com.cs544.roommate.repository.ReviewRepository;
 
 @Service
-public class ReviewServiceImpl implements IReviewService{
+public class ReviewService implements IReviewService{
 
 	@Autowired
 	private ReviewRepository reviewRepository;
@@ -25,7 +25,7 @@ public class ReviewServiceImpl implements IReviewService{
 	
 	@Transactional
 	public void deleteReview(long reviewId) {
-		reviewRepository.deleteById(reviewId);
+		reviewRepository.delete(reviewId);
 	}
 
 	@Transactional

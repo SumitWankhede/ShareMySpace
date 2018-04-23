@@ -1,17 +1,13 @@
 package com.cs544.roommate.repository;
 
-import java.util.Collection;
-
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
-import com.cs544.roommate.domain.Room;
+import com.cs544.roommate.domain.Property;
 
 
 // Not completed!!!
 
-public interface IRoomDao extends JpaRepository<Room, Integer> {
+public interface IPropertyDao extends JpaRepository<Property, Integer> {
 
 //	@Query("select p from property p where property_id = :id")
 //	public Room getRoom(@Param("id") int id);

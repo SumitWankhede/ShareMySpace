@@ -17,13 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cs544.roommate.domain.Review;
-import com.cs544.roommate.service.ReviewServiceImpl;
+import com.cs544.roommate.service.ReviewService;
 
 @Controller
 public class ReviewController {
 
 	@Autowired
-	private ReviewServiceImpl reviewService;
+	private ReviewService reviewService;
 
 	/*@RequestMapping(value = "/add/1", method = RequestMethod.POST)
 	public String addReview(@PathVariable(value = "review") Review review) {
@@ -38,7 +38,7 @@ public class ReviewController {
 	}
 	
 	@RequestMapping(value = "/addReview", method = RequestMethod.GET)
-	public String addReview(@ModelAttribute("reviw") Review review) {
+	public String addReview(@ModelAttribute("review") Review review) {
 		return "addReview";
 		
 	}

@@ -6,21 +6,16 @@ import javax.persistence.*;
 public class Address {
 	
 	@Id
-	private int id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 	private String street;
 	private String city;
 	private String state;
 	private String zip;
 	
-	@OneToOne(mappedBy = "address")
+	@OneToOne(mappedBy="address")
 	private Property property;
 	
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
 	public String getStreet() {
 		return street;
 	}
@@ -51,5 +46,12 @@ public class Address {
 	public void setProperty(Property property) {
 		this.property = property;
 	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
 	
 }
