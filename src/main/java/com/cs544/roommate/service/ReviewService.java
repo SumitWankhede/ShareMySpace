@@ -12,20 +12,26 @@ import com.cs544.roommate.domain.Review;
 import com.cs544.roommate.domain.User;
 import com.cs544.roommate.repository.ReviewRepository;
 
+
 @Service
-public class ReviewService implements IReviewService{
+public class ReviewService implements IReviewService {
 
 	@Autowired
 	private ReviewRepository reviewRepository;
-	
+
 	@Transactional
 	public void saveReview(Review review) {
+		System.out.println("Saving review");
 		reviewRepository.save(review);
 	}
-	
+
 	@Transactional
-	public void deleteReview(long reviewId) {
-		reviewRepository.delete(reviewId);
+	public void deleteReview(Review review) {
+		reviewRepository.delete(review);
+	}
+
+	public Review getReview(long id) {
+		return reviewRepository.findOne(id);
 	}
 
 	@Transactional
@@ -34,12 +40,16 @@ public class ReviewService implements IReviewService{
 	}
 
 	@Transactional
+	public List<Review> getAllReview(User user) {
+		return reviewRepository.findAll();
+	}
+
+	@Transactional
 	public List<Review> getReviewByUser(User user) {
 		return reviewRepository.getReviewByUser(user);
 	}
 
-	@Transactional
-	public List<Review> getAllReview(User user) {
+	public List<Review> findAll() {
 		return reviewRepository.findAll();
 	}
 

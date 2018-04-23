@@ -12,5 +12,6 @@ public interface IReviewService {
 	public List<Review> getReviewByProperty(Property property);
 	public List<Review> getReviewByUser(User user);
 	public List<Review> getAllReview(User user);
-	public void deleteReview(long reviewId);
+	public void deleteReview(Review review);
+	public List<Review> findAll();
 }
