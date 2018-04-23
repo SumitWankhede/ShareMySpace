@@ -47,60 +47,60 @@ public class ReviewController {
 		return "review/create2";
 	}
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "review/list", method = RequestMethod.GET)
 	public String list(Model model) {
-		model.addAttribute("review", reviewService.findAll());
-		return "review/list";
+		model.addAttribute("reviews", reviewService.findAll());
+		return "review/list2";
 	}
 
+	/*
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	private String get(Model model, @ModelAttribute("review") Review2 review, Integer userId, BindingResult result) {
 		System.out.println("Coming");
 		model.addAttribute("review", new Review2());
 		return "/review/create";
 	}
-	/*
-	 * @RequestMapping(value = "/create", method = RequestMethod.GET) private String
-	 * get(Model model, @ModelAttribute("review") Review
-	 * review, @ModelAttribute("property") Property property,
-	 * 
-	 * @ModelAttribute("user") User user, @RequestParam(value = "propertyId",
-	 * required = false) Integer propertyId,
-	 * 
-	 * @RequestParam(value = "reviewId") Long reviewId,
-	 * 
-	 * @RequestParam(value = "userId", required = false) Integer userId,
-	 * BindingResult result) { if (reviewId != null && reviewId > 0) { Review
-	 * updatedReview = reviewService.getReview(reviewId);
-	 * model.addAttribute("review",updatedReview);
-	 * model.addAttribute("property",updatedReview.getUser()); } else {
-	 * review.setProperty(propertyService.getProperty(propertyId));
-	 * review.setUser(userService.findById(1)); System.out.println("In GET"); }
-	 * 
-	 * return "/review/create"; }
-	 */
-	/*
-	 * @RequestMapping(value = "/create", method = RequestMethod.POST) private
-	 * String create(Model model, @ModelAttribute("review") Review review,
-	 * 
-	 * @ModelAttribute("property") Property property, @ModelAttribute("user") User
-	 * user,
-	 * 
-	 * @RequestParam(value = "id", required = false) Integer id,
-	 * 
-	 * @RequestParam(value = "userId", required = false) Integer userId) {
-	 * 
-	 * Property p = propertyService.getProperty(2); review.setProperty(p);
-	 * review.setUser(userService.findById(1)); reviewService.saveReview(review);
-	 * return "redirect:/review/reviewsList"; }
-	 * 
-	 */
+	*/
+	@RequestMapping(value = "review/create", method = RequestMethod.GET)
+	private String get(Model model, @ModelAttribute("review") Review review,
+			@ModelAttribute("property") Property property,
+			@ModelAttribute("user") User user, @RequestParam(value = "propertyId", required = false) Integer propertyId,
+			@RequestParam(value = "reviewId") Long reviewId,
+			@RequestParam(value = "userId", required = false) Integer userId, BindingResult result) {
+		if (reviewId != null && reviewId > 0) { //for update
+			Review updatedReview = reviewService.getReview(reviewId);
+			
+			model.addAttribute("review", updatedReview);
+			model.addAttribute("property", updatedReview.getUser());
+		} else {
+			review.setProperty(propertyService.getProperty(propertyId));
+			review.setUser(userService.findById(1));
+			System.out.println("In GET");
+		}
 
-	@RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-	public String delete(@PathVariable("id") int id) {
-		Review review = reviewService.getReview(id);
+		return "/review/create";
+	}
+
+	@RequestMapping(value = "review/create", method = RequestMethod.POST)
+	private String create(Model model, @ModelAttribute("review") Review review,
+			@ModelAttribute("property") Property property, @ModelAttribute("user") User user,
+			@RequestParam(value = "id", required = false) Integer id,
+			@RequestParam(value = "userId", required = false) Integer userId) {
+
+		Property p = propertyService.getProperty(2);
+		review.setProperty(p);
+		review.setUser(userService.findById(1));
+		reviewService.saveReview(review);
+		model.addAttribute("reviews",reviewService.findAll());
+		return "redirect:/review/list";
+		
+	}
+	
+	@RequestMapping(value = "review/delete/{reviewId}", method = RequestMethod.POST)
+	public String delete(@PathVariable("reviewId") int reviewId) {
+		Review review = reviewService.getReview(reviewId);
 		reviewService.deleteReview(review);
-		return "redirect:/review";
+		return "redirect:/review/list";
 	}
 
 }
