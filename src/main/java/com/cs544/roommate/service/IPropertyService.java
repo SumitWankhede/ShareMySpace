@@ -9,7 +9,7 @@ public interface IPropertyService {
 
 	public Collection<Property> getPropertyList();
 	public void addProperty(Property property);
-	public Optional<Property> getProperty(int id);
+	public Property getProperty(int id);
 	public void updateProperty(Property property);
 	public void removeProperty(int id);
 }

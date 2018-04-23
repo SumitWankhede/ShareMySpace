@@ -25,7 +25,7 @@ public class ReviewService implements IReviewService{
 	
 	@Transactional
 	public void deleteReview(long reviewId) {
-		reviewRepository.deleteById(reviewId);
+		reviewRepository.delete(reviewId);
 	}
 
 	@Transactional

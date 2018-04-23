@@ -27,8 +27,8 @@ public class PropertyService implements IPropertyService {
 		propertyDao.saveAndFlush(property);
 	}
 
-	public Optional<Property> getProperty(int id) {
-		return propertyDao.findById(id);
+	public Property getProperty(int id) {
+		return propertyDao.findOne(id);
 	}
 
 	public void updateProperty(Property property) {
@@ -36,7 +36,7 @@ public class PropertyService implements IPropertyService {
 	}
 
 	public void removeProperty(int id) {
-		propertyDao.deleteById(id);
+		propertyDao.delete(id);
 	}
 
 }
