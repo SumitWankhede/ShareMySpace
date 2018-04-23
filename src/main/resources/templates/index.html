@@ -20,6 +20,7 @@
     <script type="text/javascript" th:src="@{js/JFCore.js}"></script>
     <script type="text/javascript" th:src="@{js/JFForms.js}"></script>
 
+
     <script th:src="@{js/jquery-ui.js}"></script>
     <script>
         $(function() {
@@ -65,15 +66,37 @@
             <div class="h_right">
                 <!--start menu -->
                 <ul class="menu">
-                    <li class="active"><a href="index">Home</a></li> |
-                    <li><a href="/user/login">Login</a></li> |
-                    <li><a href="property">Post Your Room</a></li>
-                    <!--
-                        <li><a href="rooms.html">rooms and suits</a></li> |
-                        <li><a href="reservation.html">reservation</a></li> |
-                        <li><a href="activities.html">activities</a></li> |
-                        <li><a href="contact.html">contact</a></li>
-                     -->
+                    <li sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown"><a href="#" class="dropdown-toggle"
+                                                                                  data-toggle="dropdown" role="button" aria-haspopup="true"
+                                                                                  aria-expanded="false">Administration<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/admin/user/">User Management</a></li>
+                        </ul>
+                    </li>
+                    <li sec:authorize="hasRole('ROLE_OWNER')" class="dropdown"><a href="#" class="dropdown-toggle"
+                                                                                  data-toggle="dropdown" role="button" aria-haspopup="true"
+                                                                                  aria-expanded="false">Owner<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/owner/user/">Property Management</a></li>
+                        </ul>
+                    </li>
+                    <li class="active"><a href="index">Home</a></li>
+                    <li sec:authorize="isAuthenticated()" class="dropdown">
+                        |
+                        <a href="#" class="dropdown-toggle"
+                           data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">
+                            <span th:text="'Hello ' + ${@sessionListener.user.name}"></span>
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/me/account/update">My Account</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="/user/logout">Logout</a></li>
+                        </ul>
+                    </li>
+                    <li sec:authorize="!isAuthenticated()"> <a href="/login">Login</a></li>
+                    <li><a href="me/account/signup">Sign up</a></li>
                     <div class="clear"></div>
                 </ul>
                 <!-- start profile_details -->
@@ -95,28 +118,11 @@
             <div class="top-nav" style="display: inline-block">
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown"><a href="#" class="dropdown-toggle"
-                                                                                      data-toggle="dropdown" role="button" aria-haspopup="true"
-                                                                                      aria-expanded="false">Administration<span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="/admin/user/">User Management</a></li>
-                            </ul>
-                        </li>
-                        <li sec:authorize="isAuthenticated()" class="dropdown">
-                            <a href="#" class="dropdown-toggle"
-                               data-toggle="dropdown" role="button" aria-haspopup="true"
-                               aria-expanded="false">
-                                <span th:text="'Hello ' + ${@sessionListener.user.name}"></span>
-                                <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="/me/account/update">My Account</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="/user/logout">Logout</a></li>
-                            </ul>
-                        </li>
 
-                        <li sec:authorize="!isAuthenticated()"><a href="/login">Login</a></li>
+
+
+
+
                     </ul>
                 </div>
             </div>
@@ -159,35 +165,6 @@
 </div>
 
 <div class="main_bg">
-<<<<<<< HEAD
-<div class="wrap">
-	<div class="online_reservation">
-	<div class="b_room">
-		<div class="booking_room">
-			<h4>Looking for apartment</h4>
-			<p>Share the following details to find perfect place for you</p>
-		</div>
-		<div class="reservation">
-			<ul>
-				<li class="span1_of_1">
-					<h5>type of room:</h5>
-				
-					<div class="section_room">
-						<select id="country" onchange="change_country(this.value)" class="frm-field required">
-							<option value="null">Select a type of room</option>
-				            <option value="null">Suite room</option>         
-				            <option value="AX">Single room</option>
-							<option value="AX">Double room</option>
-		        		</select>
-					</div>	
-				</li>
-				<li  class="span1_of_1 left">
-					<h5>check-in-date:</h5>
-					<div class="book_date">
-						<form>
-							<input class="date" id="datepicker" type="text" value="DD/MM/YY" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'DD/MM/YY';}"/>
-						</form>
-=======
     <div class="wrap">
         <div class="online_reservation">
             <div class="b_room">
@@ -215,7 +192,6 @@
                                 <form>
                                     <input class="date" id="datepicker" type="text" value="DD/MM/YY" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'DD/MM/YY';}"/>
                                 </form>
->>>>>>> b5a749699c4b795cc2c403f5e697f25653bd5b57
 
                             </div>
                         </li>

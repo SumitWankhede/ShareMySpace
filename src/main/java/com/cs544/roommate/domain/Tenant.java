@@ -10,7 +10,7 @@ import javax.persistence.OneToMany;
 //@Entity
 //public class Tenant extends User {
 //	private String userType;
-//	
+//
 //	@OneToMany(mappedBy = "user")
 //	private List<Review> reviews = new ArrayList<>();
 //
@@ -26,13 +26,24 @@ import javax.persistence.OneToMany;
 //		reviews.add(review);
 //		review.setUser(this);
 //	}
-//	
+//
 //	public void removeReview(Review review) {
 //		review.setUser(null);
 //		this.reviews.remove(review);
 //	}
-//	
+//
 //	public List<Review> getReviews(){
 //		return Collections.unmodifiableList(reviews);
 //	}
+//}
+
+/*	public String getUserType() {
+		return userType;
+	}
+
+	public void setUserType(String userType) {
+		this.userType = userType;
+	}
+	*/
+	
 //}

@@ -29,6 +29,7 @@ public class User {
     private String password;
     private boolean enabled;
 
+    private int price;
 
     @Transient
     private Integer role;
@@ -125,4 +126,11 @@ public class User {
         this.roles = roles;
     }
 
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
 }
