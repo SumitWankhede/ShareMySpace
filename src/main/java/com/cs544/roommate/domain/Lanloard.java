@@ -9,7 +9,7 @@ import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+/*@Entity
 public class Lanloard extends  User{
 
 	private String userType;
@@ -30,5 +30,5 @@ public class Lanloard extends  User{
 		this.propertyList = propertyList;
 	}
     
-    
-}
+
+}*/

@@ -12,7 +12,7 @@ import com.cs544.roommate.domain.User;
 
 @Controller
 public class HomeController {
-    @RequestMapping(value = {"/","/home","/index"})
+    @RequestMapping(value = {"/","/home","/index","login"})
     public ModelAndView home(){
         ModelAndView mv = new ModelAndView("index");
         return mv;
@@ -23,12 +23,12 @@ public class HomeController {
         ModelAndView mv = new ModelAndView("ratings");
         return mv;
     }
-    
+    /*
     @GetMapping("/signup")
 	public String signupPage(Model model) {
 		//model.addAttribute("person", new User());
 		return "signup";
-	}
+	}*/
     
     @RequestMapping(value = {"/rooms"})
     public ModelAndView rooms(){

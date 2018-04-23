@@ -1,118 +1,136 @@
-
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-<title>Share My Space</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'/>
-<link rel="stylesheet" href="../../css/fwslider.css" media="all"/>
+    <title>Share My Space</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'/>
+    <link rel="stylesheet"  th:href="@{css/fwslider.css}" media="all"/>
 
-<script src="../../js/jquery.min.js"></script>
-<script src="../../js/jquery-ui.min.js"></script>
-<script src="../../js/css3-mediaqueries.js"></script>
-<script src="../../js/fwslider.js"></script>
-<link href="../../css/style.css" rel="stylesheet" type="text/css" media="all" />
-<link rel="stylesheet" href="../../css/jquery-ui.css" />
+    <script th:src="@{js/jquery.min.js}"></script>
+    <script th:src="@{js/jquery-ui.min.js}"></script>
+    <script th:src="@{js/css3-mediaqueries.js}"></script>
+    <script th:src="@{js/fwslider.js}"></script>
+    <link th:href="@{css/style.css}" rel="stylesheet" type="text/css" media="all" />
+    <link rel="stylesheet" th:href="@{css/jquery-ui.css}" />
 
-<link type="text/css" rel="stylesheet" href="../../css/JFGrid.css" />
-<link type="text/css" rel="stylesheet" href="../../css/JFFormStyle-1.css" />
-<script type="text/javascript" src="../../js/JFCore.js"></script>
-<script type="text/javascript" src="../../js/JFForms.js"></script>
+    <link type="text/css" rel="stylesheet" th:href="@{css/JFGrid.css}" />
+    <link type="text/css" rel="stylesheet" th:href="@{css/JFFormStyle-1.css}" />
+    <script type="text/javascript" th:src="@{js/JFCore.js}"></script>
+    <script type="text/javascript" th:src="@{js/JFForms.js}"></script>
 
-<script src="js/jquery-ui.js"></script>
-<script>
-	  $(function() {
-	    $( "#datepicker,#datepicker1" ).datepicker();
-	  });
-</script>
+    <script th:src="@{js/jquery-ui.js}"></script>
+    <script>
+        $(function() {
+            $( "#datepicker,#datepicker1" ).datepicker();
+        });
+    </script>
 
-<!-- Set here the key for your domain in order to hide the watermark on the web server -->
-<script type="text/javascript">
-	(function() {
-		JC.init({
-			domainKey: ''
-		});
-		})();
-</script>
+    <!-- Set here the key for your domain in order to hide the watermark on the web server -->
+    <script type="text/javascript">
+        (function() {
+            JC.init({
+                domainKey: ''
+            });
+        })();
+    </script>
 
-<script>
-		$(function() {
-			var pull 		= $('#pull');
-				menu 		= $('nav ul');
-				menuHeight	= menu.height();
+    <script>
+        $(function() {
+            var pull 		= $('#pull');
+            menu 		= $('nav ul');
+            menuHeight	= menu.height();
 
-			$(pull).on('click', function(e) {
-				e.preventDefault();
-				menu.slideToggle();
-			});
+            $(pull).on('click', function(e) {
+                e.preventDefault();
+                menu.slideToggle();
+            });
 
-			$(window).resize(function(){
-        		var w = $(window).width();
-        	
-    		});
-		});
-</script>
+            $(window).resize(function(){
+                var w = $(window).width();
+
+            });
+        });
+    </script>
 </head>
 <body>
 
 <div class="header_bg">
-<div class="wrap">
-	<div class="header">
-		<div class="logo">
-			<a href="index.html"><img src="../../images/logo.png" alt=""/></a>
-		</div>
-		<div class="h_right">
-			<!--start menu -->
-			<ul class="menu">
-				<li class="active"><a href="index">Home</a></li> |
-				<li><a href="login">Login</a></li> |
-				<li><a href="property">Post Your Room</a></li>
-				<!-- 
-					<li><a href="rooms.html">rooms and suits</a></li> |
-					<li><a href="reservation.html">reservation</a></li> |
-					<li><a href="activities.html">activities</a></li> |
-					<li><a href="contact.html">contact</a></li>
-				 -->
-				<div class="clear"></div>
-			</ul>
-			<!-- start profile_details -->
-					<form class="style-1 drp_dwn">
-						<div class="row">
-							<div class="grid_3 columns">
-								<select class="custom-select" id="select-1">
-									<option selected="selected">EN</option>
-									<option>USA</option>
-									<option>AUS</option>
-									<option>UK</option>
-									<option>IND</option>
-								</select>
-							</div>		
-						</div>		
-					</form>
-		</div>
-		<div class="clear"></div>
-		<div class="top-nav">
-		<nav class="clearfix">
-			<ul>
-				<li class="active"><a href="index">Home</a></li> |
-				<li><a href="login">Login</a></li> |
-				<li><a href="property">Post Your Room</a></li>
-			</ul>
-			<a href="#" id="pull">Menu</a>
-			</nav>
-		</div>
-	</div>
-</div>
+    <div class="wrap">
+        <div class="header">
+            <div class="logo">
+                <a href="index.html"><img src="../../images/logo.png" th:attr="src=@{../../images/logo.png}" alt=""/></a>
+            </div>
+            <div class="h_right">
+                <!--start menu -->
+                <ul class="menu">
+                    <li class="active"><a href="index">Home</a></li> |
+                    <li><a href="/user/login">Login</a></li> |
+                    <li><a href="property">Post Your Room</a></li>
+                    <!--
+                        <li><a href="rooms.html">rooms and suits</a></li> |
+                        <li><a href="reservation.html">reservation</a></li> |
+                        <li><a href="activities.html">activities</a></li> |
+                        <li><a href="contact.html">contact</a></li>
+                     -->
+                    <div class="clear"></div>
+                </ul>
+                <!-- start profile_details -->
+                <form class="style-1 drp_dwn">
+                    <div class="row">
+                        <div class="grid_3 columns">
+                            <select class="custom-select" id="select-1">
+                                <option selected="selected">EN</option>
+                                <option>USA</option>
+                                <option>AUS</option>
+                                <option>UK</option>
+                                <option>IND</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="clear"></div>
+            <div class="top-nav" style="display: inline-block">
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown"><a href="#" class="dropdown-toggle"
+                                                                                      data-toggle="dropdown" role="button" aria-haspopup="true"
+                                                                                      aria-expanded="false">Administration<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/admin/user/">User Management</a></li>
+                            </ul>
+                        </li>
+                        <li sec:authorize="isAuthenticated()" class="dropdown">
+                            <a href="#" class="dropdown-toggle"
+                               data-toggle="dropdown" role="button" aria-haspopup="true"
+                               aria-expanded="false">
+                                <span th:text="'Hello ' + ${@sessionListener.user.name}"></span>
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/me/account/update">My Account</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="/user/logout">Logout</a></li>
+                            </ul>
+                        </li>
+
+                        <li sec:authorize="!isAuthenticated()"><a href="/login">Login</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="images-slider">
-	<!-- start slider -->
+    <!-- start slider -->
     <div id="fwslider">
         <div class="slider_container">
-            <div class="slide"> 
+            <div class="slide">
                 <!-- Slide image -->
-                    <img src="../../images/bedroom_index2.jpg" alt=""/>
+                <img src="../../images/bedroom_index2.jpg" th:attr="src=@{../../images/bedroom_index2.jpg}" alt=""/>
                 <!-- /Slide image -->
                 <!-- Texts container -->
                 <div class="slide_content">
@@ -120,153 +138,153 @@
                         <h5 class="title1"><i class="bg"></i>Share My <span class="hide">Space</span></h5 >
                     </div>
                 </div>
-                 <!-- /Texts container -->
+                <!-- /Texts container -->
             </div>
             <!-- /Duplicate to create more slides -->
             <div class="slide">
-                <img src="../../images/bedroom_index.jpg" alt=""/>
+                <img src="../../images/bedroom_index.jpg" th:attr="src=@{../../images/bedroom_index.jpg}" alt=""/>
                 <div class="slide_content">
-                     <div class="slide_content_wrap">
-                     	 <h5 class="title1"><i class="bg"></i>Share My <span class="hide">Space</span></h5 >
+                    <div class="slide_content_wrap">
+                        <h5 class="title1"><i class="bg"></i>Share My <span class="hide">Space</span></h5 >
                     </div>
                 </div>
             </div>
-           
+
         </div>
         <div class="timers"> </div>
         <div class="slidePrev"><span> </span></div>
         <div class="slideNext"><span> </span></div>
     </div>
-  
+
 </div>
 
 <div class="main_bg">
-<div class="wrap">
-	<div class="online_reservation">
-	<div class="b_room">
-		<div class="booking_room">
-			<h4>book a room online</h4>
-			<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>
-		</div>
-		<div class="reservation">
-			<ul>
-				<li class="span1_of_1">
-					<h5>type of room:</h5>
-				
-					<div class="section_room">
-						<select id="country" onchange="change_country(this.value)" class="frm-field required">
-							<option value="null">Select a type of room</option>
-				            <option value="null">Suite room</option>         
-				            <option value="AX">Single room</option>
-							<option value="AX">Double room</option>
-		        		</select>
-					</div>	
-				</li>
-				<li  class="span1_of_1 left">
-					<h5>check-in-date:</h5>
-					<div class="book_date">
-						<form>
-							<input class="date" id="datepicker" type="text" value="DD/MM/YY" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'DD/MM/YY';}"/>
-						</form>
+    <div class="wrap">
+        <div class="online_reservation">
+            <div class="b_room">
+                <div class="booking_room">
+                    <h4>book a room online</h4>
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>
+                </div>
+                <div class="reservation">
+                    <ul>
+                        <li class="span1_of_1">
+                            <h5>type of room:</h5>
 
-					</div>					
-				</li>
-				<li  class="span1_of_1 left">
-					<h5>check-out-date:</h5>
-					<div class="book_date">
-						<form>
-							<input class="date" id="datepicker1" type="text" value="DD/MM/YY" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'DD/MM/YY';}"/>
-						</form>
-					</div>		
-				</li>
-				<li class="span1_of_2 left">
-					<h5>Adults:</h5>
-				
-					<div class="section_room">
-						<select id="country" onchange="change_country(this.value)" class="frm-field required">
-							<option value="null">1</option>
-				            <option value="null">2</option>         
-				            <option value="AX">3</option>
-							<option value="AX">4</option>
-		        		</select>
-					</div>					
-				</li>
-				<li class="span1_of_3">
-					<div class="date_btn">
-						<form>
-							<input type="submit" value="book now" />
-						</form>
-					</div>
-				</li>
-				<div class="clear"></div>
-			</ul>
-		</div>
-		<div class="clear"></div>
-		</div>
-	</div>
-	<!--start grids_of_3 -->
-	<div class="grids_of_3">
-		<div class="grid1_of_3">
-			<div class="grid1_of_3_img">
-				<a href="details">
-					<img src="images/pic2.jpg" alt="" />
-					<span class="next"> </span>
-				</a>
-			</div>
-			<h4><a href="#">single room<span>120$</span></a></h4>
-			<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-		</div>
-		<div class="grid1_of_3">
-			<div class="grid1_of_3_img">
-				<a href="details.html">
-					<img src="images/pic1.jpg" alt="" />
-					<span class="next"> </span>
-				</a>
-			</div>
-			<h4><a href="#">double room<span>180$</span></a></h4>
-			<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-		</div>
-		<div class="grid1_of_3">
-			<div class="grid1_of_3_img">
-				<a href="details.html">
-					<img src="images/pic3.jpg" alt="" />
-					<span class="next"> </span>
-				</a>
-			</div>
-			<h4><a href="/reviewform">suite room<span>210$</span></a></h4>
-			<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-		</div>
-		<div class="clear"></div>
-	</div>	
+                            <div class="section_room">
+                                <select id="country" onchange="change_country(this.value)" class="frm-field required">
+                                    <option value="null">Select a type of room</option>
+                                    <option value="null">Suite room</option>
+                                    <option value="AX">Single room</option>
+                                    <option value="AX">Double room</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li  class="span1_of_1 left">
+                            <h5>check-in-date:</h5>
+                            <div class="book_date">
+                                <form>
+                                    <input class="date" id="datepicker" type="text" value="DD/MM/YY" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'DD/MM/YY';}"/>
+                                </form>
+
+                            </div>
+                        </li>
+                        <li  class="span1_of_1 left">
+                            <h5>check-out-date:</h5>
+                            <div class="book_date">
+                                <form>
+                                    <input class="date" id="datepicker1" type="text" value="DD/MM/YY" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'DD/MM/YY';}"/>
+                                </form>
+                            </div>
+                        </li>
+                        <li class="span1_of_2 left">
+                            <h5>Adults:</h5>
+
+                            <div class="section_room">
+                                <select id="country" onchange="change_country(this.value)" class="frm-field required">
+                                    <option value="null">1</option>
+                                    <option value="null">2</option>
+                                    <option value="AX">3</option>
+                                    <option value="AX">4</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li class="span1_of_3">
+                            <div class="date_btn">
+                                <form>
+                                    <input type="submit" value="book now" />
+                                </form>
+                            </div>
+                        </li>
+                        <div class="clear"></div>
+                    </ul>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <!--start grids_of_3 -->
+        <div class="grids_of_3">
+            <div class="grid1_of_3">
+                <div class="grid1_of_3_img">
+                    <a href="details">
+                        <img src="images/pic2.jpg" th:attr="src=@{images/pic2.jpg}" alt="" />
+                        <span class="next"> </span>
+                    </a>
+                </div>
+                <h4><a href="#">single room<span>120$</span></a></h4>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+            </div>
+            <div class="grid1_of_3">
+                <div class="grid1_of_3_img">
+                    <a href="details.html">
+                        <img src="images/pic1.jpg" th:attr="src=@{images/pic1.jpg}" alt="" />
+                        <span class="next"> </span>
+                    </a>
+                </div>
+                <h4><a href="#">double room<span>180$</span></a></h4>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+            </div>
+            <div class="grid1_of_3">
+                <div class="grid1_of_3_img">
+                    <a href="details.html">
+                        <img src="images/pic3.jpg" th:attr="src=@{images/pic3.jpg}" alt="" />
+                        <span class="next"> </span>
+                    </a>
+                </div>
+                <h4><a href="/reviewform">suite room<span>210$</span></a></h4>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
 </div>
-</div>		
 <!--start main -->
 <div class="footer_bg">
-<div class="wrap">
-<div class="footer">
-<div class="copy">
-	<p class="link"><span>© All rights reserved | Template by&nbsp;<a href="http://w3layouts.com/"> W3Layouts</a></span></p>
+    <div class="wrap">
+        <div class="footer">
+            <div class="copy">
+                <p class="link"><span>© All rights reserved | Template by&nbsp;<a href="http://w3layouts.com/"> W3Layouts</a></span></p>
+            </div>
+            <div class="f_nav">
+                <ul>
+                    <li class="active"><a href="index">Home</a></li> |
+                    <li><a href="login">Login</a></li> |
+                    <li><a href="property">Post Your Room</a></li>
+                </ul>
+            </div>
+            <div class="soc_icons">
+                <ul>
+                    <li><a class="icon1" href="#"></a></li>
+                    <li><a class="icon2" href="#"></a></li>
+                    <li><a class="icon3" href="#"></a></li>
+                    <li><a class="icon4" href="#"></a></li>
+                    <li><a class="icon5" href="#"></a></li>
+                    <div class="clear"></div>
+                </ul>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
 </div>
-<div class="f_nav">
-	<ul>
-		<li class="active"><a href="index">Home</a></li> |
-		<li><a href="login">Login</a></li> |
-		<li><a href="property">Post Your Room</a></li>
-	</ul>
-</div>
-<div class="soc_icons">
-	<ul>
-		<li><a class="icon1" href="#"></a></li>
-		<li><a class="icon2" href="#"></a></li>
-		<li><a class="icon3" href="#"></a></li>
-		<li><a class="icon4" href="#"></a></li>
-		<li><a class="icon5" href="#"></a></li>
-		<div class="clear"></div>
-	</ul>	
-</div>
-<div class="clear"></div>
-</div>
-</div>
-</div>		
 </body>
 </html>
