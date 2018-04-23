@@ -1,5 +1,3 @@
-// Dont need this class.
-
 package com.cs544.roommate.domain;
 
 

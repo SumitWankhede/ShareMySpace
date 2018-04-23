@@ -5,44 +5,45 @@ import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
-public class Review {
+public class Review implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private long id;
     
-    @NotNull
+   // @NotNull
     private int rating;
-    @NotNull
+    //@NotNull
     private String reviewText;
+    
+    private String title;
+    
     private Date date;
-    private Date fromDate;
-    private Date toDate;
+  
 
     @ManyToOne
-   // @Valid
+    @JoinColumn(name="propertyId")
     private Property property;
     
-    @OneToOne
-   // @Valid
-    private Tenant user;
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    private User user;
     
     public Review() {
     	date = new Date();
+    	
     }
-
-	public int getId() {
+    
+	public long getId() {
 		return id;
-		
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-	
 	public String getReviewText() {
 		return reviewText;
 	}
@@ -67,12 +68,12 @@ public class Review {
 	public void setProperty(Property property) {
 		this.property = property;
 	}
-
-	public Tenant getUser() {
+	
+	public User getUser() {
 		return user;
 	}
 
-	public void setUser(Tenant user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 
@@ -84,25 +85,16 @@ public class Review {
 		this.rating = rating;
 	}
 
-	public Date getFromDate() {
-		return fromDate;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setFromDate(Date fromDate) {
-		System.out.println("fromDate : " + fromDate);
-		this.fromDate = fromDate;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
-	public Date getToDate() {
-		return toDate;
+	public void setId(long id) {
+		this.id = id;
 	}
-
-	public void setToDate(Date toDate) {
-		System.out.println("toDate : " + toDate);
-		this.toDate = toDate;
-	}
-    
-	
-	
 
 }

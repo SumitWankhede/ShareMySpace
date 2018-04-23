@@ -11,7 +11,7 @@ public class Property {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private int id;
     
    
     private String title;
@@ -32,7 +32,7 @@ public class Property {
     private Address address;
 
     @OneToMany
-    private List<Review> reviews = new ArrayList<Review>();
+    private List<Review> reviews = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private PropertyType propertyType;
@@ -40,11 +40,11 @@ public class Property {
     public Property() {
     	this.updatedDate = new Date();
     }
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

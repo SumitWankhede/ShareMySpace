@@ -11,11 +11,11 @@ import java.util.List;
 @Embeddable
 public class Room {
 
-    @NotNull
+   // @NotNull
     private double roomPrice;
     private double utilitiesPrice;
 
-    @NotNull
+   // @NotNull
     @Enumerated(EnumType.STRING)
     private RoomType roomType;
 
