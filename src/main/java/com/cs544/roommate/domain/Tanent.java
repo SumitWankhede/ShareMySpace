@@ -2,7 +2,7 @@ package com.cs544.roommate.domain;
 
 import javax.persistence.Entity;
 
-@Entity
+/*@Entity
 public class Tanent extends User {
 	private String userType;
 
@@ -15,4 +15,4 @@ public class Tanent extends User {
 	}
 	
 	
-}
+}*/
