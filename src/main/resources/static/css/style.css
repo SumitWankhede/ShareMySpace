@@ -53,7 +53,7 @@ body {
 }
 /* start h_right */
 .h_right{
-	width: 66.3333%;
+	width: 40.3333%;
 	float:right;
 }
 /* start menu */
@@ -163,7 +163,7 @@ body {
 /* start booking_room */
 .online_reservation{
 	position: relative;
-	margin-top: -65px;
+	margin-top: -205px;
 	z-index: 999;
 }
 .b_room{
