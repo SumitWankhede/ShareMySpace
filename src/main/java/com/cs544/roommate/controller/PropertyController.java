@@ -22,6 +22,7 @@ import com.cs544.roommate.domain.Room;
 import com.cs544.roommate.service.IPropertyService;
 
 @Controller
+@RequestMapping("property")
 public class PropertyController {
 	
 	private IPropertyService propertyService;
@@ -31,20 +32,20 @@ public class PropertyController {
 		this.propertyService = roomService;
 	}
 
-	@RequestMapping(value = "/property", method = RequestMethod.GET)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String property() {
 		//reviewService.saveReview(review);
 		return "property";
 	}
 	
-	@RequestMapping(value = "/properties", method = RequestMethod.GET)	
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Model model) {
 		//return propertyService.getPropertyList();	
 		model.addAttribute("properties", propertyService.getPropertyList());
 		return "propertyList";
 	}
 
-	@RequestMapping(value = "/addProperty", method = RequestMethod.POST)
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	//@ResponseStatus(HttpStatus.CREATED)
 	public String addProperty(@ModelAttribute("property") Property property, @ModelAttribute("room") Room room, @ModelAttribute("address") Address address) {
 		property.setRoom(room);
@@ -53,12 +54,12 @@ public class PropertyController {
 		return "redirect:/properties";
 	}
 
-	@RequestMapping(value = "/property/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public @ResponseBody Property findProperty(@PathVariable("id") int id) {
 		return propertyService.getProperty(id);
 	}
 
-	@RequestMapping(value = "/property", method = RequestMethod.PUT)
+	@RequestMapping(value = "/", method = RequestMethod.PUT)
 	@ResponseStatus(HttpStatus.OK)
 	public void updateProperty(@RequestBody Property property) {
 		propertyService.updateProperty(property);
