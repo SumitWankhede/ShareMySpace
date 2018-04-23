@@ -1,6 +1,7 @@
 package com.cs544.roommate.controller;
 
 import java.util.Collection;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -53,7 +54,7 @@ public class PropertyController {
 	}
 
 	@RequestMapping(value = "/property/{id}", method = RequestMethod.GET)
-	public @ResponseBody Property findProperty(@PathVariable("id") int id) {
+	public @ResponseBody Optional<Property> findProperty(@PathVariable("id") int id) {
 		return propertyService.getProperty(id);
 	}
 

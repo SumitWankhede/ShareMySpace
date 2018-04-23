@@ -32,7 +32,7 @@ public class Property {
     private Address address;
 
     @OneToMany
-    private List<Review> reviews = new ArrayList<>();
+    private List<Review> reviews = new ArrayList<Review>();
 
     @Enumerated(EnumType.STRING)
     private PropertyType propertyType;

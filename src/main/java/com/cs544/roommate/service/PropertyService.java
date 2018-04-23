@@ -1,6 +1,7 @@
 package com.cs544.roommate.service;
 
 import java.util.Collection;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,29 +19,24 @@ public class PropertyService implements IPropertyService {
 		this.propertyDao = propertyDao;
 	}
 
-	@Override
 	public Collection<Property> getPropertyList() {
 		return propertyDao.findAll();
 	}
 
-	@Override
 	public void addProperty(Property property) {
 		propertyDao.saveAndFlush(property);
 	}
 
-	@Override
-	public Property getProperty(int id) {
-		return propertyDao.findOne(id);
+	public Optional<Property> getProperty(int id) {
+		return propertyDao.findById(id);
 	}
 
-	@Override
 	public void updateProperty(Property property) {
 		propertyDao.save(property);
 	}
 
-	@Override
 	public void removeProperty(int id) {
-		propertyDao.delete(id);
+		propertyDao.deleteById(id);
 	}
 
 }
