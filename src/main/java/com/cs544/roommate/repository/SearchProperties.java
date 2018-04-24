@@ -11,9 +11,9 @@ import com.cs544.roommate.domain.Property;
 @Repository
 public class SearchProperties {
 	@Autowired
-	private EntityManager em;
+	private static EntityManager em;
 
-	public List<Property> search(String location, String typeOfRoom, int noOfRooms, int budgetMin, int budgetMax) {
+	public static List<Property> search(String location, String typeOfRoom, int noOfRooms, int budgetMin, int budgetMax) {
 
 		String sql = "select distinct p from property p " + " where 1 = 1";
 
