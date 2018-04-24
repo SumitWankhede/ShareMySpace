@@ -1,19 +1,19 @@
 package com.cs544.roommate.service;
 
 import java.util.Collection;
-
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.cs544.roommate.domain.Property;
 import com.cs544.roommate.domain.Review;
 import com.cs544.roommate.repository.IPropertyDao;
+import com.cs544.roommate.repository.SearchProperties;
 
 @Service
 public class PropertyService implements IPropertyService {
-	
+
 	private IPropertyDao propertyDao;
-	
+
 	@Autowired
 	public void setPropertyDao(IPropertyDao propertyDao) {
 		this.propertyDao = propertyDao;
@@ -45,17 +45,21 @@ public class PropertyService implements IPropertyService {
 	public void removeProperty(int id) {
 		propertyDao.delete(id);
 	}
-	
+
 	public Property getPropertyById(String propertyId) {
 		return propertyDao.getOne((int) Long.parseLong(propertyId));
 	}
-	
+
 	public void addReview(String propertyId, Review review) {
 		Property updateProperty = getPropertyById(propertyId);
 		updateProperty.addReview(review);
 		review.setProperty(updateProperty);
 		propertyDao.save(updateProperty);
-		
+
+	}
+
+	public List<Property> search(String location, String typeOfRoom, int noOfRooms, int budgetMin, int budgetMax) {
+		return SearchProperties.search(location, typeOfRoom, noOfRooms, budgetMin, budgetMax);
 	}
 
 }
