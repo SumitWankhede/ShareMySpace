@@ -20,8 +20,8 @@ public class ReviewService implements IReviewService {
 	private ReviewRepository reviewRepository;
 
 	@Transactional
-	public void saveReview(Review review) {
-		System.out.println("Saving review");
+	public void createReview(String reviewId, String propertyId, Review review) {
+		
 		reviewRepository.save(review);
 	}
 
@@ -43,7 +43,12 @@ public class ReviewService implements IReviewService {
 	public List<Review> getReviewByPropertyId(int propertyId) {
 		System.out.println(propertyId);
 		return reviewRepository.getReviewByPropertyId(propertyId);
-		//return null;
+	}
+	
+	public void updateReview(String reviewId , Review review){
+		Review toUpdate = getReview(Long.parseLong(reviewId));
+		toUpdate.setTitle(review.getTitle());
+		toUpdate.setReviewText(review.getReviewText());
 	}
 
 	@Transactional

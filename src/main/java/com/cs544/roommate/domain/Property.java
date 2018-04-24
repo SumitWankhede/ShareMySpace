@@ -1,46 +1,56 @@
 package com.cs544.roommate.domain;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
 @Entity
-@Table(name="property")
+@Table(name = "property")
 public class Property {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
-    
-    private String title;
-    private String description;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
+	private String title;
+	private String description;
+	private int totalBedRooms;
+	private int totalBathRooms;
+	private int availableRooms;
 
-    private int totalBedRooms;
-    private int totalBathRooms;
-    private int availableRooms;
+	private Date createdDate;
+	private Date updatedDate;
 
-    private Date createdDate;
-    private Date updatedDate;
-    
-    @Embedded
-    private Room room;
-    
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id")
-    private Address address;
+	@Embedded
+	private Room room;
 
-    @OneToMany(mappedBy="property",
-    		 cascade = CascadeType.PERSIST)
-    private List<Review> reviews = new ArrayList<Review>();
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "address_id")
+	private Address address;
 
-    @Enumerated(EnumType.STRING)
-    private PropertyType propertyType;
+	@OneToMany(mappedBy = "property",cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Review> reviews = new ArrayList<Review>();
 
-    public Property() {
-    	this.updatedDate = new Date();
-    }
+	@Enumerated(EnumType.STRING)
+	private PropertyType propertyType;
+
+	public Property() {
+		this.updatedDate = new Date();
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -65,7 +75,6 @@ public class Property {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-
 
 	public String getDescription() {
 		return description;
@@ -134,15 +143,19 @@ public class Property {
 	public void setRoom(Room room) {
 		this.room = room;
 	}
-	
+
+	//Convenience method
 	public void addReview(Review review) {
-		this.reviews.add(review);
+		reviews.add(review);
 		review.setProperty(this);
 	}
-	
-	public List<Review> getReviews(){
+
+	public void removeReview(Review review) {
+		review.setProperty(null);
+		this.reviews.remove(review);
+	}
+	public List<Review> getReviews() {
 		return Collections.unmodifiableList(reviews);
 	}
- 
 
 }
