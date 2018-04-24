@@ -1,6 +1,8 @@
 package com.cs544.roommate.controller;
 
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,11 +34,15 @@ public class PropertyController {
 		this.propertyService = roomService;
 	}
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String property() {
+	@RequestMapping(value = "", method = RequestMethod.GET)
+	public String property(Model model) {
 		//reviewService.saveReview(review);
-		return "property";
+		model.addAttribute("property", new Property());
+		model.addAttribute("room", new Room());
+		model.addAttribute("address", new Address());
+		return "/property/create";
 	}
+
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Model model) {
@@ -46,12 +52,12 @@ public class PropertyController {
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	//@ResponseStatus(HttpStatus.CREATED)
+	@ResponseStatus(HttpStatus.CREATED)
 	public String addProperty(@ModelAttribute("property") Property property, @ModelAttribute("room") Room room, @ModelAttribute("address") Address address) {
 		property.setRoom(room);
 		property.setAddress(address);
 		propertyService.addProperty(property);
-		return "redirect:/properties";
+		return "redirect:/list";
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -71,4 +77,8 @@ public class PropertyController {
 		propertyService.removeProperty(id);
 	}
 	
+//	@ModelAttribute("propertyTypes")
+//	public List<Property.PropertyType> propertyTypes(){
+//		return Arrays.asList(Property.PropertyType.values());
+//	}
 }
