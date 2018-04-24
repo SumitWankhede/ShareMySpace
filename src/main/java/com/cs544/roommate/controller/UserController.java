@@ -29,7 +29,7 @@ public class UserController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView doUserList(Model model) {
         ModelAndView mv = new ModelAndView("admin/user/index");
-        model.addAttribute("users", userService.findAll());
+        model.addAttribute("userList", userService.findAll());
         return mv;
     }
 

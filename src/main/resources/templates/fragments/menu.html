@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-	<nav class="navbar navbar-default navbar-static-top" th:fragment="menu">
+<!-- Navigation -->
+	<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0" th:fragment="menu">
 		<div class="container">
+
 			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed"
+				<button type="button" class="navbar-toggle"
 					data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
 					aria-expanded="false">
 					<span class="sr-only">Toggle navigation</span> <span
@@ -13,6 +15,7 @@
 				</button>
 				<a class="navbar-brand" href="#">Share My Space</a>
 			</div>
+            <!-- /.navbar-header -->
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
                     <li sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown"><a href="#" class="dropdown-toggle"
