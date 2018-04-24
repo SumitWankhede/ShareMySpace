@@ -6,16 +6,16 @@ package com.cs544.roommate.controller;
 
 
 import com.cs544.roommate.config.SessionListener;
+import com.cs544.roommate.config.SmtpMailSender;
 import com.cs544.roommate.domain.User;
 import com.cs544.roommate.service.RoleService;
 import com.cs544.roommate.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import javax.mail.MessagingException;
 
 @Controller
 @RequestMapping("/me/")
@@ -29,6 +29,9 @@ public class AccountController {
 
     @Autowired
     private SessionListener secSessionListener;
+
+    @Autowired
+    private SmtpMailSender mailSender;
 
 
     // Update Account
@@ -70,7 +73,13 @@ public class AccountController {
         userService.save(user);
         model.addAttribute("infoMsg",
                 "Your new account has been created sucessfully. Click here to login");
+        try{
+            mailSender.sendMail(user.getEmail(),"Login information","Congratulations~!. Welcome to Share My Space website.. ");
+        }catch (MessagingException e){
+            e.printStackTrace();
+        }
+        model.addAttribute("emailMsg","Mail sending...");
         return view;
-    }
 
+    }
 }

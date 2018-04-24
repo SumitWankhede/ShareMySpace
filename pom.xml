@@ -131,6 +131,13 @@
                 <groupId>org.slf4j</groupId>
                 <artifactId>log4j-over-slf4j</artifactId>
             </dependency>
+
+
+        <!--Mail -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
 	</dependencies>
 
 	<repositories>

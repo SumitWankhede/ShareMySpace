@@ -30,6 +30,12 @@
 						    	<span aria-hidden="true">&times;</span>
 					  		</button>
 						</div>
+                        <div th:if="${emailMsg != null}" class="alert alert-warning alert-dismissible" role="alert">
+                            <a href="/user/login" th:text="${emailMsg}"></a>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
                         <div class="form-group row">
                             <label for="rentPrice" class="col-sm-2 col-form-label">Price</label>
                             <div class="col-sm-10">
