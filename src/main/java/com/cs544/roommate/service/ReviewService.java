@@ -38,6 +38,13 @@ public class ReviewService implements IReviewService {
 	public List<Review> getReviewByProperty(Property property) {
 		return reviewRepository.getReviewByProperty(property);
 	}
+	
+	@Transactional
+	public List<Review> getReviewByPropertyId(int propertyId) {
+		System.out.println(propertyId);
+		return reviewRepository.getReviewByPropertyId(propertyId);
+		//return null;
+	}
 
 	@Transactional
 	public List<Review> getAllReview(User user) {
