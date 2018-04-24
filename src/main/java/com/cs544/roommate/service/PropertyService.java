@@ -20,7 +20,7 @@ public class PropertyService implements IPropertyService {
 	}
 
 	@Override
-	public Collection<Property> getPropertyList() {
+	public List<Property> getPropertyList() {
 		return propertyDao.findAll();
 	}
 

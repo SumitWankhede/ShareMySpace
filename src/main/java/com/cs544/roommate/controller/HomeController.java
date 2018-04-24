@@ -18,7 +18,8 @@ public class HomeController {
 	@RequestMapping(value = { "/", "/home", "/index" })
 	public ModelAndView home() {
 		ModelAndView mv = new ModelAndView("index");
-		((Model) mv).addAttribute("propertyList", propertyService.getPropertyList());
+		
+		 mv.addObject("index", propertyService.getPropertyList());
 
 		return mv;
 	}
@@ -42,10 +43,11 @@ public class HomeController {
 	}
 
 	@PostMapping({ "/search" })
-	public String search(Model model, @ModelAttribute("search") SearchParam searchParam) {
-		model.addAttribute("propertyList",
+	public ModelAndView search(Model model, @ModelAttribute("search") SearchParam searchParam) {
+		ModelAndView mv = new ModelAndView("search");
+		mv.addObject("search",
 				propertyService.search(searchParam.getLocation(), searchParam.getTypeOfRoom(),
 						searchParam.getNoOfRooms(), searchParam.getBudgetMin(), searchParam.getBudgetMax()));
-		return "index";
+		return mv;
 	}
 }
