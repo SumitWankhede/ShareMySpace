@@ -35,13 +35,13 @@
         </thead>
         <tbody>
         <tr th:each="user : ${userList}">
-            <th scope="row">1</th>
+            <th scope="row">${user.id}</th>
             <td th:text="${user.name}"></td>
             <td th:text="${user.email}"></td>
             <td th:text="${user.phone}"></td>
             <td th:text="${user.password}"></td>
             <td>
-                <a th:href="@{/admin/user/create(id=${user.id})}">Edit</a>
+                <a th:href="@{/admin/user/edit(id=${user.id})}">Edit</a>
             </td>
             <td>
                 <form method="post" th:action="@{'/admin/user/delete/'+${user.id}}">

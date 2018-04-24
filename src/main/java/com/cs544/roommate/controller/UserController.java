@@ -52,7 +52,6 @@ public class UserController {
         ModelAndView mv = new ModelAndView("redirect:/admin/user/");
         User existingUser = userService.findByEmail(user.getEmail());
         if(existingUser != null && user.getId() == 0) {
-            model.addAttribute("errorMsg", "This email already exists. Please use another email.");
             ModelAndView mv2 = new ModelAndView("admin/user/create");
             return mv2;
         } else {

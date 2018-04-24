@@ -13,7 +13,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "user")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class User {
 
     @Id
@@ -46,7 +45,6 @@ public class User {
 	
 	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Property> properties = new ArrayList<Property>();
-	
     public User() {
 
     }
@@ -77,32 +75,6 @@ public class User {
 
     public List<Role> getRoles() {
         return roles;
-    }
-
-    public void addRole(Role role) {
-        if (!this.roles.contains(role)) {
-            this.roles.add(role);
-        }
-    }
-
-    public void removeRole(Role role) {
-        this.roles.remove(role);
-    }
-
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public void clearRoles() {
-        for (Role role : roles) {
-            role.getUsers().clear();
-        }
-        roles.clear();
     }
 
     public String getName() {
@@ -139,6 +111,32 @@ public class User {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public void addRole(Role role) {
+        if (!this.roles.contains(role)) {
+            this.roles.add(role);
+        }
+    }
+
+    public void removeRole(Role role) {
+        this.roles.remove(role);
+    }
+
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void clearRoles() {
+        for (Role role : roles) {
+            role.getUsers().clear();
+        }
+        roles.clear();
     }
     
   //Convenience method

@@ -7,6 +7,7 @@ package com.cs544.roommate.controller;
 
 import com.cs544.roommate.config.SessionListener;
 import com.cs544.roommate.config.SmtpMailSender;
+import com.cs544.roommate.domain.Role;
 import com.cs544.roommate.domain.User;
 import com.cs544.roommate.service.RoleService;
 import com.cs544.roommate.service.UserService;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.mail.MessagingException;
+import java.util.List;
 
 @Controller
 @RequestMapping("/account/")
@@ -43,7 +45,7 @@ public class AccountController {
     }
 
     @PostMapping("/update")
-    public ModelAndView doUpdate(Model model, @ModelAttribute("user") User user) {
+    public ModelAndView doUpdate(Model m, @ModelAttribute("user") User user) {
         ModelAndView mv = new ModelAndView("redirect:/me/account/update");
         User users = userService.findByEmail(sessionListener.getUser().getEmail());
         if (user.getPassword() ==null || user.getPassword().isEmpty()) {
@@ -54,7 +56,7 @@ public class AccountController {
     }
 
     @GetMapping({"/signup"})
-    public ModelAndView doSignUp(Model model, @ModelAttribute("user") User user) {
+    public ModelAndView doSignUp(Model m, @ModelAttribute("user") User user) {
         ModelAndView mv = new ModelAndView("profile/signup");
         user.addRole(roleService.findOne(2));
         user.setEnabled(true);
@@ -75,6 +77,5 @@ public class AccountController {
             e.printStackTrace();
         }
         return mv;
-
     }
 }
