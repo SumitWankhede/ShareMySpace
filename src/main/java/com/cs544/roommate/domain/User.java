@@ -43,8 +43,8 @@ public class User {
 	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Review> reviews = new ArrayList<Review>();
 	
-	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Property> properties = new ArrayList<Property>();
+	/*@OneToMany(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Property> properties = new ArrayList<Property>();*/
     public User() {
 
     }

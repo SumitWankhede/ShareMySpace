@@ -33,8 +33,8 @@ public class UserController {
         return mv;
     }
 
-    @RequestMapping(value = "/create", method = RequestMethod.GET)
-    public ModelAndView doCreate(Model model, @ModelAttribute("user") User user,
+    @RequestMapping(value = "/edit", method = RequestMethod.GET)
+    public ModelAndView doEdit(Model model, @ModelAttribute("user") User user,
                             @RequestParam(value = "id", required = false) Long id) {
         ModelAndView mv = new ModelAndView("admin/user/create");
         if (id != null) {
