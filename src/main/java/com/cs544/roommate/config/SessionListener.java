@@ -34,15 +34,15 @@ public class SessionListener {
   }
 
   private String getPrincipal() {
-    String userName = null;
+    String username = null;
     Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
     if (principal instanceof UserDetails) {
-      userName = ((UserDetails) principal).getUsername();
+        username = ((UserDetails) principal).getUsername();
     } else {
-      userName = principal.toString();
+        username = principal.toString();
     }
-    return userName;
+    return username;
   }
 
 }
