@@ -2,6 +2,7 @@ package com.cs544.roommate.domain;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -13,7 +14,6 @@ public class Property {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     
-   
     private String title;
     private String description;
 
@@ -31,8 +31,9 @@ public class Property {
     @JoinColumn(name = "address_id")
     private Address address;
 
-    @OneToMany
-    private List<Review> reviews = new ArrayList<>();
+    @OneToMany(mappedBy="property",
+    		 cascade = CascadeType.PERSIST)
+    private List<Review> reviews = new ArrayList<Review>();
 
     @Enumerated(EnumType.STRING)
     private PropertyType propertyType;
@@ -114,10 +115,6 @@ public class Property {
 		this.updatedDate = updatedDate;
 	}
 
-	public List<Review> getReviews() {
-		return reviews;
-	}
-
 	public void setReviews(List<Review> reviews) {
 		this.reviews = reviews;
 	}
@@ -137,6 +134,15 @@ public class Property {
 	public void setRoom(Room room) {
 		this.room = room;
 	}
-  
+	
+	public void addReview(Review review) {
+		this.reviews.add(review);
+		review.setProperty(this);
+	}
+	
+	public List<Review> getReviews(){
+		return Collections.unmodifiableList(reviews);
+	}
+ 
 
 }

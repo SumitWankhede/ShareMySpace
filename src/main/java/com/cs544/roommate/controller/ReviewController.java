@@ -44,6 +44,8 @@ public class ReviewController {
 	@GetMapping("/review")
 	public String createReview(Model model) {
 		model.addAttribute("review", new Review());
+		model.addAttribute("property",new Property());
+		//model.addAttribute("user");
 		return "review/create2";
 	}
 
@@ -53,14 +55,19 @@ public class ReviewController {
 		return "review/list2";
 	}
 
-	/*
-	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	private String get(Model model, @ModelAttribute("review") Review2 review, Integer userId, BindingResult result) {
-		System.out.println("Coming");
-		model.addAttribute("review", new Review2());
-		return "/review/create";
+	@RequestMapping(value = "review/reviewList", method = RequestMethod.GET)
+	public String reviewList(Model model, @RequestParam(value="propertyId") String propertyId) {
+		
+		List<Review> reviews = reviewService.getReviewByPropertyId(new Integer(propertyId));
+		for(Review review : reviews) {
+			System.out.println("Review : " + review.getReviewText());
+			System.out.println("property details" + review.getProperty().getTitle());
+		}
+		
+		model.addAttribute("reviews", reviews);
+		return "review/list2";
 	}
-	*/
+
 	@RequestMapping(value = "review/create", method = RequestMethod.GET)
 	private String get(Model model, @ModelAttribute("review") Review review,
 			@ModelAttribute("property") Property property,
@@ -69,10 +76,11 @@ public class ReviewController {
 			@RequestParam(value = "userId", required = false) Integer userId, BindingResult result) {
 		if (reviewId != null && reviewId > 0) { //for update
 			Review updatedReview = reviewService.getReview(reviewId);
-			
+			System.out.println("Here in get review if ");
 			model.addAttribute("review", updatedReview);
-			model.addAttribute("property", updatedReview.getUser());
+			model.addAttribute("property", updatedReview.getProperty());
 		} else {
+			System.out.println("Here in get review else ");
 			review.setProperty(propertyService.getProperty(propertyId));
 			review.setUser(userService.findById(1));
 			System.out.println("In GET");
@@ -83,12 +91,19 @@ public class ReviewController {
 
 	@RequestMapping(value = "review/create", method = RequestMethod.POST)
 	private String create(Model model, @ModelAttribute("review") Review review,
-			@ModelAttribute("property") Property property, @ModelAttribute("user") User user,
-			@RequestParam(value = "id", required = false) Integer id,
+			//@ModelAttribute("property") Property property, @ModelAttribute("user") User user,
+			@RequestParam(value = "reviewId", required = false) Integer reviewId,
+			@RequestParam(value = "propertyId", required = false) Integer propertyId,
 			@RequestParam(value = "userId", required = false) Integer userId) {
-
-		Property p = propertyService.getProperty(2);
-		review.setProperty(p);
+		
+		System.out.println("Here in post review");
+//		Property p = propertyService.getProperty(2);
+//		review.setProperty(p);
+//		review.setUser(userService.findById(1));
+		//review.setProperty(property);
+		//review.setUser(user);
+	
+		review.setProperty(propertyService.getProperty(1));
 		review.setUser(userService.findById(1));
 		reviewService.saveReview(review);
 		model.addAttribute("reviews",reviewService.findAll());

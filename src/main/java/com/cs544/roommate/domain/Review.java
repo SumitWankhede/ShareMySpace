@@ -24,9 +24,9 @@ public class Review implements Serializable{
     
     private String title;
     
+    @MapKeyTemporal(TemporalType.TIMESTAMP)
     private Date date;
   
-
     @ManyToOne
     @JoinColumn(name="propertyId")
     private Property property;
@@ -37,7 +37,6 @@ public class Review implements Serializable{
     
     public Review() {
     	date = new Date();
-    	
     }
     
 	public long getId() {
@@ -67,6 +66,7 @@ public class Review implements Serializable{
 
 	public void setProperty(Property property) {
 		this.property = property;
+		property.addReview(this);
 	}
 	
 	public User getUser() {
@@ -97,4 +97,61 @@ public class Review implements Serializable{
 		this.id = id;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((date == null) ? 0 : date.hashCode());
+		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + ((property == null) ? 0 : property.hashCode());
+		result = prime * result + rating;
+		result = prime * result + ((reviewText == null) ? 0 : reviewText.hashCode());
+		result = prime * result + ((title == null) ? 0 : title.hashCode());
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Review other = (Review) obj;
+		if (date == null) {
+			if (other.date != null)
+				return false;
+		} else if (!date.equals(other.date))
+			return false;
+		if (id != other.id)
+			return false;
+		if (property == null) {
+			if (other.property != null)
+				return false;
+		} else if (!property.equals(other.property))
+			return false;
+		if (rating != other.rating)
+			return false;
+		if (reviewText == null) {
+			if (other.reviewText != null)
+				return false;
+		} else if (!reviewText.equals(other.reviewText))
+			return false;
+		if (title == null) {
+			if (other.title != null)
+				return false;
+		} else if (!title.equals(other.title))
+			return false;
+		if (user == null) {
+			if (other.user != null)
+				return false;
+		} else if (!user.equals(other.user))
+			return false;
+		return true;
+	}
+	
+	
+	
 }
