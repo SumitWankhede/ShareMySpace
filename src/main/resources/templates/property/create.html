@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" th:href="@{/modules/bootstrap/css/bootstrap.css}" />
+<script type="text/javascript"
+	th:src="@{/modules/jquery/jquery-3.3.1.js}"></script>
+<script type="text/javascript"
+	th:src="@{/modules/bootstrap/js/bootstrap.js}"></script>
+<title>Property</title>
+</head>
+<body>
+	<div th:replace="fragments/menu :: menu"></div>
+	<div class="container">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Post Your Room</h3>
+			</div>
+			<div class="panel-body">
+				<form th:object="${property}" th:action="@{/property/create/1}"
+					method="post">
+
+					<div class="form-group row">
+				    <label for="price" class="col-sm-2 col-form-label">Property Type</label>
+				    <div class="col-sm-10">
+				       <select th:field="*{propertyType}">
+				      	<option th:each="type: ${propertyType}" th:text="${propertyType}" th:value="${propertyType}"></option>
+				      </select>
+				    </div>
+				  </div>
+				  
+				  <div class="form-group row">
+				    <label for="type" class="col-sm-2 col-form-label">Property Title</label>
+				    <div class="col-sm-10">
+				    	<input type="text" class="form-control" th:field="*{title}" placeholder="Summarize your stay or highlight an interesting detail">
+				    	  </input>
+				    </div>
+				  </div>
+				  
+				  <div class="form-group row">
+				    <label for="type" class="col-sm-2 col-form-label">Available Rooms</label>
+				    <div class="col-sm-10">
+				    	<input type="text" class="form-control" th:field="*{availableRooms}" placeholder="Summarize your stay or highlight an interesting detail">
+				    	  </input>
+				    </div>
+				  </div>
+				  
+				    <div class="form-group row">
+				    <label for="type" class="col-sm-2 col-form-label">Property Description</label>
+				    <div class="col-sm-10">
+				    	<textarea rows="5" class="form-control" th:field="*{description}"
+				    	placeholder="By sharing your experiences, you're helping other makes better choices and plan their dream home. Thank you.">
+				    	  </textarea>
+				    </div>
+				  </div>
+				  
+				   <div class="form-group row">
+				    <label for="type" class="col-sm-2 col-form-label">Room Price</label>
+				    <div class="col-sm-10">
+				    	<input type="text" class="form-control" th:field="*{title}" placeholder="Summarize your stay or highlight an interesting detail">
+				    	  </input>
+				    </div>
+				  </div>
+				  
+				   <div class="form-group row">
+				    <label for="type" class="col-sm-2 col-form-label">Property Title</label>
+				    <div class="col-sm-10">
+				    	<input type="text" class="form-control" th:field="*{title}" placeholder="Summarize your stay or highlight an interesting detail">
+				    	  </input>
+				    </div>
+				  </div>
+				  
+				   <div class="form-group row">
+				    <label for="type" class="col-sm-2 col-form-label">Property Title</label>
+				    <div class="col-sm-10">
+				    	<input type="text" class="form-control" th:field="*{title}" placeholder="Summarize your stay or highlight an interesting detail">
+				    	  </input>
+				    </div>
+				  </div>
+				  
+				   <div class="form-group row">
+				    <label for="type" class="col-sm-2 col-form-label">Property Title</label>
+				    <div class="col-sm-10">
+				    	<input type="text" class="form-control" th:field="*{title}" placeholder="Summarize your stay or highlight an interesting detail">
+				    	  </input>
+				    </div>
+				  </div>
+				  
+				   <div class="form-group row">
+				    <label for="type" class="col-sm-2 col-form-label">Property Title</label>
+				    <div class="col-sm-10">
+				    	<input type="text" class="form-control" th:field="*{title}" placeholder="Summarize your stay or highlight an interesting detail">
+				    	  </input>
+				    </div>
+				  </div>
+				  
+				   <div class="form-group row">
+				    <label for="type" class="col-sm-2 col-form-label">Property Title</label>
+				    <div class="col-sm-10">
+				    	<input type="text" class="form-control" th:field="*{title}" placeholder="Summarize your stay or highlight an interesting detail">
+				    	  </input>
+				    </div>
+				  </div>
+				  
+				   <div class="form-group row">
+				    <label for="type" class="col-sm-2 col-form-label">Property Title</label>
+				    <div class="col-sm-10">
+				    	<input type="text" class="form-control" th:field="*{title}" placeholder="Summarize your stay or highlight an interesting detail">
+				    	  </input>
+				    </div>
+				  </div>
+				  
+				   <div class="form-group row">
+				    <label for="type" class="col-sm-2 col-form-label">Property Title</label>
+				    <div class="col-sm-10">
+				    	<input type="text" class="form-control" th:field="*{title}" placeholder="Summarize your stay or highlight an interesting detail">
+				    	  </input>
+				    </div>
+				  </div>
+				  
+				   <div class="form-group row">
+				    <label for="type" class="col-sm-2 col-form-label">Property Title</label>
+				    <div class="col-sm-10">
+				    	<input type="text" class="form-control" th:field="*{title}" placeholder="Summarize your stay or highlight an interesting detail">
+				    	  </input>
+				    </div>
+				  </div>
+				  
+				  
+					<input type="hidden" th:field="*{id}" /> <input type="submit"
+						class="btn btn-primary" value="Create" th:if="*{id} == 0" /> <input
+						type="submit" class="btn btn-primary" value="Update"
+						th:if="*{id} != 0" />
+				</form>
+			</div>
+		</div>
+		<div>
+			<div class="panel-footer"></div>
+		</div>
+
+	</div>
+</body>
+</html>
