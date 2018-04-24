@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Entity
@@ -40,6 +41,12 @@ public class User {
             inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
     private List<Role> roles = new ArrayList<Role>();
 
+	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Review> reviews = new ArrayList<Review>();
+	
+	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Property> properties = new ArrayList<Property>();
+	
     public User() {
 
     }
@@ -133,4 +140,20 @@ public class User {
     public void setPrice(int price) {
         this.price = price;
     }
+    
+  //Convenience method
+  //Added by Romie on 2018-04-24
+  	public void addReview(Review review) {
+  		reviews.add(review);
+  		review.setUser(this);
+  	}
+
+  	public void removeReview(Review review) {
+  		review.setUser(null);
+  		this.reviews.remove(review);
+  	}
+  	public List<Review> getReviews() {
+  		return Collections.unmodifiableList(reviews);
+  	}
+
 }
