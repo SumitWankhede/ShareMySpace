@@ -3,31 +3,149 @@
 <head>
 <meta charset="UTF-8" />
 <link rel="stylesheet" th:href="@{/modules/bootstrap/css/bootstrap.css}" />
-<link rel="stylesheet" th:href="@{/css/login.css}" />
+<link rel="stylesheet" th:href="@{/css/styles.css}" />
 <script type="text/javascript"
 	th:src="@{/modules/jquery/jquery-3.3.1.js}"></script>
 <script type="text/javascript"
 	th:src="@{/modules/bootstrap/js/bootstrap.js}"></script>
 <title>Login</title>
+    <style>
+        #success_message{ display: none;}
+    </style>
+    <script>
+        $(document).ready(function() {
+            $('#contact_form').bootstrapValidator({
+                // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    first_name: {
+                        validators: {
+                            stringLength: {
+                                min: 2,
+                            },
+                            notEmpty: {
+                                message: 'Please enter your First Name'
+                            }
+                        }
+                    },
+                    last_name: {
+                        validators: {
+                            stringLength: {
+                                min: 2,
+                            },
+                            notEmpty: {
+                                message: 'Please enter your Last Name'
+                            }
+                        }
+                    },
+                    user_name: {
+                        validators: {
+                            stringLength: {
+                                min: 8,
+                            },
+                            notEmpty: {
+                                message: 'Please enter your Username'
+                            }
+                        }
+                    },
+                    user_password: {
+                        validators: {
+                            stringLength: {
+                                min: 8,
+                            },
+                            notEmpty: {
+                                message: 'Please enter your Password'
+                            }
+                        }
+                    },
+                    confirm_password: {
+                        validators: {
+                            stringLength: {
+                                min: 8,
+                            },
+                            notEmpty: {
+                                message: 'Please confirm your Password'
+                            }
+                        }
+                    },
+                    email: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Please enter your Email Address'
+                            },
+                            emailAddress: {
+                                message: 'Please enter a valid Email Address'
+                            }
+                        }
+                    },
+                    contact_no: {
+                        validators: {
+                            stringLength: {
+                                min: 12,
+                                max: 12,
+                                notEmpty: {
+                                    message: 'Please enter your Contact No.'
+                                }
+                            }
+                        },
+                        department: {
+                            validators: {
+                                notEmpty: {
+                                    message: 'Please select your Department/Office'
+                                }
+                            }
+                        },
+                    }
+                }
+            })
+                .on('success.form.bv', function(e) {
+                    $('#success_message').slideDown({ opacity: "show" }, "slow") // Do something ...
+                    $('#contact_form').data('bootstrapValidator').resetForm();
+
+                    // Prevent form submission
+                    e.preventDefault();
+
+                    // Get the form instance
+                    var $form = $(e.target);
+
+                    // Get the BootstrapValidator instance
+                    var bv = $form.data('bootstrapValidator');
+
+                    // Use Ajax to submit form data
+                    $.post($form.attr('action'), $form.serialize(), function(result) {
+                        console.log(result);
+                    }, 'json');
+                });
+        });
+    </script>
 </head>
 <body>
-	<div class="container">
-		<form class="form-signin" th:object="${user}" th:action="@{/user/login}" method="post">
-			<h2 class="form-signin-heading" style="text-align: center">Share My Space</h2>
-             <div class="alert alert-danger" th:if="${param.error != null}">
-                 <p>Invalid username and password.</p>
-             </div>
-			<label for="inputEmail" class="sr-only">Email address</label> 
-			<input type="email" id="inputEmail" class="form-control" placeholder="Email address" th:field="*{email}"/> 
-			<label for="inputPassword" class="sr-only">Password</label>
-			<br /> 
-			<input type="password" id="inputPassword" class="form-control" placeholder="Password"  th:field="*{password}"/>
-			<br /> 
-			<input type="submit" class="btn btn-lg btn-primary btn-block" value="Sign in"/>
-		</form>
-		<div class="form-signin" style="border-top:1px solid #d1d1d1">
-			<a th:href="@{/me/account/signup}">Sign up ? </a>
-		</div>
-	</div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 col-md-4 col-md-offset-4">
+            <h1 class="text-center login-title">Sign in to continue to Share My Space</h1>
+            <div class="account-wall">
+                <img class="profile-img" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
+                     alt=""/>
+                <form class="form-signin" th:object="${user}" th:action="@{/login/}" method="post">
+                    <input type="text" class="form-control" placeholder="Email" th:field="*{email}"/>
+                    <input type="password" class="form-control" placeholder="Password" th:field="*{password}"/>
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">
+                        Sign in</button>
+                    <label class="checkbox pull-left">
+                        <input type="checkbox" value="remember-me"/>
+                        Remember me
+                    </label>
+                    <a href="#" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
+                </form>
+            </div>
+            <a th:href="@{/account/signup}" class="text-center new-account">Create an account </a>
+        </div>
+    </div>
+</div>
 </body>
 </html>
