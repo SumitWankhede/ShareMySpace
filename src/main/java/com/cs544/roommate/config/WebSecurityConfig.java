@@ -34,8 +34,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .authorizeRequests()
                 .antMatchers("/", "/home", "/index", "/modules/**", 
-                				"/css/**","/user/login",
-                				"/me/account/signup", "/js/**",
+                				"/css/**","/login/",
+                				"/account/signup", "/js/**",
                 				"/images/**",
                 				"/api/**").permitAll()
                 .antMatchers("/owner/**").hasRole("OWNER")
@@ -43,14 +43,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
-            .formLogin().loginPage("/user/login")
+            .formLogin().loginPage("/login/")
             	.permitAll()
             	.usernameParameter("email")
             	.passwordParameter("password")
             	.defaultSuccessUrl("/")
             	.and()
             .logout()
-            	.logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
+            	.logoutRequestMatcher(new AntPathRequestMatcher("/login/logout"))
             	.invalidateHttpSession(true)
              .clearAuthentication(true)
             	.logoutSuccessUrl("/")
@@ -63,11 +63,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		auth.jdbcAuthentication().usersByUsernameQuery(authQuery)
 								.authoritiesByUsernameQuery(authorQuery)
 								.dataSource(dataSource);
-	}
-	
-	@Bean
-	public PasswordEncoder passwordEncoder(){
-		PasswordEncoder encoder = new BCryptPasswordEncoder();
-		return encoder;
 	}
 }

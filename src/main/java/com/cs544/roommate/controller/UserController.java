@@ -7,10 +7,13 @@ import com.cs544.roommate.domain.Role;
 import com.cs544.roommate.domain.User;
 import com.cs544.roommate.service.RoleService;
 import com.cs544.roommate.service.UserService;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import sun.awt.ModalExclude;
 
 import java.util.List;
 
@@ -24,14 +27,16 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String list(Model model) {
+    public ModelAndView doUserList(Model model) {
+        ModelAndView mv = new ModelAndView("admin/user/index");
         model.addAttribute("users", userService.findAll());
-        return "admin/user/index";
+        return mv;
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
-    public String get(Model model, @ModelAttribute("user") User user,
-                      @RequestParam(value = "id", required = false) Long id) {
+    public ModelAndView doCreate(Model model, @ModelAttribute("user") User user,
+                            @RequestParam(value = "id", required = false) Long id) {
+        ModelAndView mv = new ModelAndView("admin/user/create");
         if (id != null) {
             User updatedUser = userService.findById(id);
             if (updatedUser.getRoles().size() == 1) {
@@ -39,17 +44,17 @@ public class UserController {
             }
             model.addAttribute("user", updatedUser);
         }
-        return "admin/user/create";
+        return mv;
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String create(Model model, @ModelAttribute("user") User user) {
-        String view = "redirect:/admin/user/";
+    public ModelAndView doCreate(Model model, @ModelAttribute("user") User user) {
+        ModelAndView mv = new ModelAndView("redirect:/admin/user/");
         User existingUser = userService.findByEmail(user.getEmail());
         if(existingUser != null && user.getId() == 0) {
             model.addAttribute("errorMsg", "This email already exists. Please use another email.");
-            view = "admin/user/create";
-            return view;
+            ModelAndView mv2 = new ModelAndView("admin/user/create");
+            return mv2;
         } else {
             if (user.getId() != 0 && user.getPassword().isEmpty()) {
                 user.setPassword(existingUser.getPassword());
@@ -58,13 +63,14 @@ public class UserController {
             user.addRole(roleService.findOne(user.getRole()));
             userService.save(user);
         }
-        return view;
+        return mv;
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-    public String delete(@PathVariable("id") Long id) {
+    public ModelAndView doDelete(@PathVariable("id") Long id) {
+        ModelAndView mv = new ModelAndView("redirect:/admin/user/");
         userService.delete(id);
-        return "redirect:/admin/user/";
+        return mv;
     }
 
     @ModelAttribute("roles")

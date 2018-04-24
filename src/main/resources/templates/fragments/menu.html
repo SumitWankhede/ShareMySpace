@@ -1,11 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-<head>
-<meta charset="UTF-8" />
-<title></title>
-</head>
-<body>
 	<nav class="navbar navbar-default navbar-static-top" th:fragment="menu">
 		<div class="container">
 			<div class="navbar-header">
@@ -24,14 +19,14 @@
                                                                                   data-toggle="dropdown" role="button" aria-haspopup="true"
                                                                                   aria-expanded="false">Administration<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="/admin/user/">User Management</a></li>
+                            <li><a href="/admin/user/">User List</a></li>
                         </ul>
                     </li>
                     <li sec:authorize="hasRole('ROLE_OWNER')" class="dropdown"><a href="#" class="dropdown-toggle"
                                                                                   data-toggle="dropdown" role="button" aria-haspopup="true"
                                                                                   aria-expanded="false">Owner<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="/owner/">Property Management</a></li>
+                            <li><a href="/owner/">Property List</a></li>
                         </ul>
                     </li>
 					<li sec:authorize="isAuthenticated()" class="dropdown">
@@ -42,9 +37,9 @@
 							<span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu">
-							<li><a href="/me/account/update">My Account</a></li>
+							<li><a href="/account/update">My Account</a></li>
 							<li role="separator" class="divider"></li>
-							<li><a href="/user/logout">Logout</a></li>
+							<li><a href="/logout">Logout</a></li>
 						</ul>
 					</li>
 
@@ -53,5 +48,4 @@
 			</div>
 		</div>
 	</nav>
-</body>
 </html>

@@ -14,11 +14,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.mail.MessagingException;
 
 @Controller
-@RequestMapping("/me/")
+@RequestMapping("/account/")
 public class AccountController {
 
     @Autowired
@@ -28,58 +29,52 @@ public class AccountController {
     private RoleService roleService;
 
     @Autowired
-    private SessionListener secSessionListener;
+    private SessionListener sessionListener;
 
     @Autowired
     private SmtpMailSender mailSender;
 
-
-    // Update Account
-    @GetMapping({"/account/update"})
-    public String account(Model model) {
-        User user = userService.findByEmail(secSessionListener.getUser().getEmail());
+    @GetMapping({"/update"})
+    public ModelAndView doHome(Model model) {
+        ModelAndView mv = new ModelAndView("profile/account");
+        User user = userService.findByEmail(sessionListener.getUser().getEmail());
         model.addAttribute("user", user);
-        return "myaccount/account";
+        return mv;
     }
 
-    @PostMapping("/account/update")
-    public String updateAccount(Model model, @ModelAttribute("user") User user) {
-        User existingUser = userService.findByEmail(secSessionListener.getUser().getEmail());
+    @PostMapping("/update")
+    public ModelAndView doUpdate(Model model, @ModelAttribute("user") User user) {
+        ModelAndView mv = new ModelAndView("redirect:/me/account/update");
+        User users = userService.findByEmail(sessionListener.getUser().getEmail());
         if (user.getPassword() ==null || user.getPassword().isEmpty()) {
-            user.setPassword(existingUser.getPassword());
+            user.setPassword(users.getPassword());
         }
         userService.save(user);
-        return "redirect:/me/account/update";
+        return mv;
     }
 
-    // Sign up
-    @GetMapping({"/account/signup"})
-    public String signUp(Model model, @ModelAttribute("user") User user) {
-        // set the default role for a new user
+    @GetMapping({"/signup"})
+    public ModelAndView doSignUp(Model model, @ModelAttribute("user") User user) {
+        ModelAndView mv = new ModelAndView("profile/signup");
         user.addRole(roleService.findOne(2));
         user.setEnabled(true);
-
-        return "myaccount/signup";
+        return mv;
     }
 
-    @PostMapping("/account/signup")
-    public String createNewAccount(Model model, @ModelAttribute("user") User user) {
-        String view = "myaccount/signup";
-        User existingUser = userService.findByEmail(user.getEmail());
-        if (existingUser != null) {
-            model.addAttribute("errorMsg", "This email already exists. Please use another email.");
-            return view;
+    @PostMapping("/signup")
+    public ModelAndView createAccount(Model model, @ModelAttribute("user") User user) {
+        ModelAndView mv = new ModelAndView("profile/signup");
+        User users = userService.findByEmail(user.getEmail());
+        if (users != null) {
+           return mv;
         }
         userService.save(user);
-        model.addAttribute("infoMsg",
-                "Your new account has been created sucessfully. Click here to login");
         try{
             mailSender.sendMail(user.getEmail(),"Login information","Congratulations~!. Welcome to Share My Space website.. ");
         }catch (MessagingException e){
             e.printStackTrace();
         }
-        model.addAttribute("emailMsg","Mail sending...");
-        return view;
+        return mv;
 
     }
 }
