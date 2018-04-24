@@ -15,7 +15,7 @@ public class HomeController {
 	@Autowired
 	private PropertyService propertyService;
 
-	@RequestMapping(value = { "/", "/home", "/index" })
+	@RequestMapping(value = { "/", "/home", "/index","/login"})
 	public ModelAndView home() {
 		ModelAndView mv = new ModelAndView("index");
 		
