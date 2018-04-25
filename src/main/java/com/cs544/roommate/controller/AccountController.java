@@ -39,7 +39,7 @@ public class AccountController {
     @GetMapping({"/update"})
     public ModelAndView doHome(Model model) {
         ModelAndView mv = new ModelAndView("profile/account");
-        User user = userService.findByEmail(sessionListener.getUser().getEmail());
+        User user = userService.getUserByEmail(sessionListener.getUser().getEmail());
         model.addAttribute("user", user);
         return mv;
     }
@@ -47,7 +47,7 @@ public class AccountController {
     @PostMapping("/update")
     public ModelAndView doUpdate(Model m, @ModelAttribute("user") User user) {
         ModelAndView mv = new ModelAndView("redirect:/me/account/update");
-        User users = userService.findByEmail(sessionListener.getUser().getEmail());
+        User users = userService.getUserByEmail(sessionListener.getUser().getEmail());
         if (user.getPassword() ==null || user.getPassword().isEmpty()) {
             user.setPassword(users.getPassword());
         }
@@ -66,7 +66,7 @@ public class AccountController {
     @PostMapping("/signup")
     public ModelAndView createAccount(Model model, @ModelAttribute("user") User user) {
         ModelAndView mv = new ModelAndView("profile/signup");
-        User users = userService.findByEmail(user.getEmail());
+        User users = userService.getUserByEmail(user.getEmail());
         if (users != null) {
            return mv;
         }

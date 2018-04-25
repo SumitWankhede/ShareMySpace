@@ -27,7 +27,7 @@ public class SessionListener {
     if (session.getAttribute("loggedUser") != null) {
       return (User) session.getAttribute("loggedUser");
     }
-    User user = service.findByEmail(getPrincipal());
+    User user = service.getUserByEmail(getPrincipal());
     session.setAttribute("loggedUser", user);
     return user;
 

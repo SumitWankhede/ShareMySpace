@@ -10,13 +10,6 @@
                 </div>
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="/">Home</a></li>
-                    <li sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown"><a href="#" class="dropdown-toggle"
-                                                                                  data-toggle="dropdown" role="button" aria-haspopup="true"
-                                                                                  aria-expanded="false">Administration<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="/admin/user/">User List</a></li>
-                        </ul>
-                    </li>
                     <li sec:authorize="hasRole('ROLE_OWNER')" class="dropdown"><a href="#" class="dropdown-toggle"
                                                                                   data-toggle="dropdown" role="button" aria-haspopup="true"
                                                                                   aria-expanded="false">Owner<span class="caret"></span></a>

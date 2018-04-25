@@ -29,7 +29,7 @@ public class UserController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView doUserList(Model model) {
         ModelAndView mv = new ModelAndView("admin/user/index");
-        model.addAttribute("userList", userService.findAll());
+        model.addAttribute("userList", userService.getAllUsers());
         return mv;
     }
 
@@ -38,7 +38,7 @@ public class UserController {
                             @RequestParam(value = "id", required = false) Long id) {
         ModelAndView mv = new ModelAndView("admin/user/create");
         if (id != null) {
-            User updatedUser = userService.findById(id);
+            User updatedUser = userService.getUserById(id);
             if (updatedUser.getRoles().size() == 1) {
                 updatedUser.setRole(updatedUser.getRoles().get(0).getId());
             }
@@ -50,7 +50,7 @@ public class UserController {
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public ModelAndView doCreate(Model model, @ModelAttribute("user") User user) {
         ModelAndView mv = new ModelAndView("redirect:/admin/user/");
-        User existingUser = userService.findByEmail(user.getEmail());
+        User existingUser = userService.getUserByEmail(user.getEmail());
         if(existingUser != null && user.getId() == 0) {
             ModelAndView mv2 = new ModelAndView("admin/user/create");
             return mv2;

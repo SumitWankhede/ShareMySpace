@@ -33,8 +33,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-                .antMatchers("/", "/home", "/index", "/modules/**", 
-                				"/css/**","/login/",
+                .antMatchers("/", "/index", "/home", "/login/",
+                				"/css/**", "/modules/**",
                 				"/account/signup", "/js/**",
                 				"/images/**").permitAll()
                 .antMatchers("/owner/**","/property/**").hasRole("OWNER")

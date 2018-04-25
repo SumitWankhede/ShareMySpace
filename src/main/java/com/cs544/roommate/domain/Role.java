@@ -12,16 +12,13 @@ import java.util.Set;
 public class Role {
 	@Id
 	@GeneratedValue
+    @Column(name="id")
 	private int id;
-	
+	@Column(name="name")
 	private String name;
 
 	@ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
 	private Set<User> users;
-
-	public Role() {
-
-	}
 
 	public int getId() {
 		return id;

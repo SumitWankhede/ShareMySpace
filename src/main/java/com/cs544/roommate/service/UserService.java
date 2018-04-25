@@ -10,36 +10,45 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
-public class UserService {
+public class UserService implements  IUserService{
+
+    private final UserRepository userRepository;
+
     @Autowired
-    private UserRepository userRepository;
-
-    public User save(User user) {
-        return userRepository.save(user);
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
-    public void delete(long id) {
-        User user = userRepository.findOne(id);
-        user.clearRoles();
-        userRepository.delete(user);
-    }
-
-    public List<User> findAll() {
-        return userRepository.findAll();
-    }
-
-    public User findById(long id) {
+    @Override
+    public User getUserById(long id) {
         return userRepository.findOne(id);
     }
-
-    public User findByEmail(String email) {
-        List<User> users = userRepository.findByEmailAllIgnoreCase(email);
+    @Override
+    public User getUserByEmail(String email) {
+        List<User> users = userRepository.findOneByEmail(email);
         if (users.size() == 1) {
             return users.get(0);
         }
         return null;
     }
+
+    @Override
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+    @Transactional
+    public void delete(long id) {
+        User user = userRepository.findOne(id);
+        user.clearRoles();
+        userRepository.delete(user);
+    }
+    @Override
+    public User save(User user) {
+        return userRepository.save(user);
+    }
+
 }

@@ -3,33 +3,44 @@
  */
 package com.cs544.roommate.domain;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class User implements Serializable {
 
     @Id
     @GeneratedValue
+    @Column(name="id")
     private long id;
-
+    @Column(name="NAME")
     private String name;
 
-    @Column(unique = true)
+    @Column(name = "EMAIL", unique = true)
+    @NotNull
     private String email;
 
+    @Column(name="PHONE")
     private String phone;
-
+    @Column(name="PASSWORD")
     private String password;
-    private boolean enabled;
-
+    @Column(name="PRICE")
     private int price;
+
+    @Column(name="AGE")
+    private int age;
+
+    @Column(name="GENDER")
+    private String gender;
+    @Column(name="enabled")
+    private boolean enabled;
 
     @Transient
     private Integer role;
@@ -45,8 +56,21 @@ public class User {
 	
 	/*@OneToMany(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Property> properties = new ArrayList<Property>();*/
-    public User() {
 
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public String getEmail() {
@@ -154,4 +178,25 @@ public class User {
   		return Collections.unmodifiableList(reviews);
   	}
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id &&
+                price == user.price &&
+                age == user.age &&
+                enabled == user.enabled &&
+                Objects.equals(name, user.name) &&
+                Objects.equals(email, user.email) &&
+                Objects.equals(phone, user.phone) &&
+                Objects.equals(password, user.password) &&
+                Objects.equals(role, user.role);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, name, email, phone, password, price, age, enabled, role);
+    }
 }
