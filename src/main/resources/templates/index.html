@@ -66,8 +66,8 @@
 			<div class="header">
 				<div class="logo">
 					<a href="index.html"><img src="../../images/logo4.jpg"
-						width="200px" height="100px" th:attr="src=@{../../images/logo4.jpg}"
-						alt="Share My Space" /></a>
+						width="200px" height="100px"
+						th:attr="src=@{../../images/logo4.jpg}" alt="Share My Space" /></a>
 				</div>
 				<div class="h_right">
 					<!--start menu -->
@@ -163,7 +163,8 @@
 						<p>Share the following details</p>
 					</div>
 					<div class="reservation">
-						<form th:object="${search}" th:action="@{/search}" method="post">
+						<form th:object="${search}" th:action="@{/search}"
+							commandName="search" method="get">
 							<ul>
 								<li class="span1_of_1">
 									<h5>Type Of Room</h5>
@@ -201,14 +202,15 @@
 								<li class="span1_of_1 left">
 									<h5>No of Rooms</h5>
 									<div class="section_room">
-										<input type="text" class="form-control" th:field="*{noOfRooms}"/>										
+										<input type="text" class="form-control"
+											th:field="*{noOfRooms}" />
 									</div>
 								</li>
 								<li class="span1_of_1 left">
 									<h5>Budget</h5>
 									<div class="section_room">
 										<select th:field="*{budget}">
-											<option value="Any">Any</option>
+											<option value="0">Any</option>
 											<option value="1">UP TO $300</option>
 											<option value="2">$300 TO $500</option>
 											<option value="3">$500 TO $1000</option>
@@ -226,51 +228,34 @@
 			</div>
 			<!--start grids_of_3 -->
 			<div class="grids_of_3">
-				<div class="grid1_of_3">
-					<div class="grid1_of_3_img">
-						<a href="details"> <img src="images/pic2.jpg"
-							th:attr="src=@{images/pic2.jpg}" alt="" /> <span class="next">
-						</span>
-						</a>
-					</div>
-					<h4>
-						<a href="#">single room<span>120$</span></a>
-					</h4>
-					<p>Lorem Ipsum is simply dummy text of the printing and
-						typesetting industry. Lorem Ipsum has been the industry's standard
-						dummy text ever since the 1500s, when an unknown printer took a
-						galley of type and scrambled it to make a type specimen book.</p>
-				</div>
-				<div class="grid1_of_3">
-					<div class="grid1_of_3_img">
-						<a href="details.html"> <img src="images/pic1.jpg"
-							th:attr="src=@{images/pic1.jpg}" alt="" /> <span class="next">
-						</span>
-						</a>
-					</div>
-					<h4>
-						<a href="#">double room<span>180$</span></a>
-					</h4>
-					<p>Lorem Ipsum is simply dummy text of the printing and
-						typesetting industry. Lorem Ipsum has been the industry's standard
-						dummy text ever since the 1500s, when an unknown printer took a
-						galley of type and scrambled it to make a type specimen book.</p>
-				</div>
-				<div class="grid1_of_3">
-					<div class="grid1_of_3_img">
-						<a href="details.html"> <img src="images/pic3.jpg"
-							th:attr="src=@{images/pic3.jpg}" alt="" /> <span class="next">
-						</span>
-						</a>
-					</div>
-					<h4>
-						<a href="/reviewform">suite room<span>210$</span></a>
-					</h4>
-					<p>Lorem Ipsum is simply dummy text of the printing and
-						typesetting industry. Lorem Ipsum has been the industry's standard
-						dummy text ever since the 1500s, when an unknown printer took a
-						galley of type and scrambled it to make a type specimen book.</p>
-				</div>
+				<h2>List of places</h2>
+				<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Id</th>
+					<!--  	<th>Image</th> -->
+						<th>City</th>
+						<th>Descriptions</th>
+						<th>Property Type</th>
+						<th>No of Rooms</th>
+						<th>Rent</th>
+						<th>View</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr th:each="property , stat : ${propertyList}">
+						<td th:text="${property.id}"></td>
+					
+						<td th:text="${property.room.area}"></td>
+						<td th:text="${property.description}"></td>
+						<td th:text="${property.propertyType}"></td>
+						<td th:text="${property.availableRooms}"></td>
+						<td th:text="${property.room.roomPrice}"></td>
+						<td><a th:href="${'/property/' + property.id}">View</a>
+						</td>
+					</tr>
+					</tbody>
+				</table>
 				<div class="clear"></div>
 			</div>
 		</div>

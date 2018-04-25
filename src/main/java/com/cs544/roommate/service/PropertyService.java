@@ -1,18 +1,23 @@
 package com.cs544.roommate.service;
 
-import java.util.Collection;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.cs544.roommate.domain.Property;
 import com.cs544.roommate.domain.Review;
 import com.cs544.roommate.repository.IPropertyDao;
 import com.cs544.roommate.repository.SearchProperties;
 
+
 @Service
 public class PropertyService implements IPropertyService {
 
 	private IPropertyDao propertyDao;
+	
+	@Autowired
+	private SearchProperties searchProperties;
 
 	@Autowired
 	public void setPropertyDao(IPropertyDao propertyDao) {
@@ -32,6 +37,8 @@ public class PropertyService implements IPropertyService {
 	@Override
 	public Property getProperty(int id) {
 		Property p = propertyDao.findOne(id);
+		//ND->
+		//Property p = null;
 		System.out.println("Find Property : " + p);
 		return p;
 	}
@@ -43,6 +50,7 @@ public class PropertyService implements IPropertyService {
 
 	@Override
 	public void removeProperty(int id) {
+// ND->	
 		propertyDao.delete(id);
 	}
 
@@ -59,7 +67,7 @@ public class PropertyService implements IPropertyService {
 	}
 
 	public List<Property> search(String location, String typeOfRoom, int noOfRooms, int budgetMin, int budgetMax) {
-		return SearchProperties.search(location, typeOfRoom, noOfRooms, budgetMin, budgetMax);
+		return searchProperties.search(location, typeOfRoom, noOfRooms, budgetMin, budgetMax);
 	}
 
 }

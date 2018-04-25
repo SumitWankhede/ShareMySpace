@@ -3,9 +3,10 @@
  */
 package com.cs544.roommate.repository;
 
-import com.cs544.roommate.domain.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import com.cs544.roommate.domain.Role;
 
 
 @Repository

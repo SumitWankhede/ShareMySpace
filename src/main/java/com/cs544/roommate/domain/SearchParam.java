@@ -8,6 +8,13 @@ public class SearchParam {
 	  private int budgetMax;
 	  private int budget;
 	  
+	  
+	  
+	  
+	  
+	public int getBudget() {
+		return budget;
+	}
 	public void setBudget(int budget) {
 		this.budget = budget;
 		switch(this.budget) {

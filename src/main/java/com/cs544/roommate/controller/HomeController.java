@@ -1,10 +1,13 @@
 package com.cs544.roommate.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -12,8 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.cs544.roommate.domain.Address;
 import com.cs544.roommate.domain.Property;
 import com.cs544.roommate.domain.Room;
-import com.cs544.roommate.service.PropertyService;
 import com.cs544.roommate.domain.SearchParam;
+import com.cs544.roommate.service.PropertyService;
 
 @Controller
 public class HomeController {
@@ -29,6 +32,8 @@ public class HomeController {
 		 mv.addObject("property", new Property());
 		 mv.addObject("room", new Room());
 		 mv.addObject("address", new Address());
+		 mv.addObject("search", new SearchParam());
+		 
 
 		return mv;
 	}
@@ -52,11 +57,12 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
-	public ModelAndView search(Model model, @ModelAttribute("search") SearchParam searchParam) {
-		ModelAndView mv = new ModelAndView("search");
-		mv.addObject("search",
-				propertyService.search(searchParam.getLocation(), searchParam.getTypeOfRoom(),
-						searchParam.getNoOfRooms(), searchParam.getBudgetMin(), searchParam.getBudgetMax()));
+	public ModelAndView search(Model model, @ModelAttribute("search") SearchParam searchParam,BindingResult result) {
+		ModelAndView mv = new ModelAndView("index");
+		List<Property> propertyList = propertyService.search(searchParam.getLocation(), searchParam.getTypeOfRoom(),
+				searchParam.getNoOfRooms(), searchParam.getBudgetMin(), searchParam.getBudgetMax());
+		mv.addObject("propertyList",propertyList);
+	//	mv.addObject("propertyList",new ArrayList<Property>());
 		return mv;
 	}
 }
