@@ -15,55 +15,63 @@
             <div class="panel-heading"> <h3 class="panel-title">User</h3> </div>
             <div class="panel-body">
                 <form th:object="${user}" th:action="@{/admin/user/create}" method="post">
-                    <div  th:if="${errorMsg != null}" class="alert alert-warning alert-dismissible" role="alert">
-                        <span th:text="${errorMsg}"></span>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="form-group row">
-                        <label for="rentPrice" class="col-sm-2 col-form-label">Price</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="rentPrice" placeholder="Rent price" th:field="*{price}" required="true"/>
+                    <div class="form-group">
+                        <div class="row">
+                            <label for="rentPrice" class="col-sm-2">Price</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="rentPrice" placeholder="Rent price" th:field="*{price}" required="true"/>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="firstName" class="col-sm-2 col-form-label">Name</label>
+                    <div class="form-group">
+                        <div class="row">
+                        <label for="firstName" class="col-sm-2 ">Name</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="firstName" placeholder="Name" th:field="*{name}" required="true"/>
                         </div>
+                        </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="email" class="col-sm-2 col-form-label">Email</label>
+                    <div class="form-group">
+                        <div class="row">
+                        <label for="email" class="col-sm-2 ">Email</label>
                         <div class="col-sm-10">
                             <input th:readonly="${param.id != null}" type="email" class="form-control" id="email" placeholder="Email" th:field="*{email}" required="true"/>
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="phone" class="col-sm-2 col-form-label">Phone</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="phone" placeholder="Phone" th:field="*{phone}" />
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="pw" class="col-sm-2 col-form-label" id="pw">Password</label>
-                        <div class="col-sm-10">
-                            <input th:if="*{id} == 0" type="password" class="form-control" placeholder="Password" th:field="*{password}" required="required"/>
-                            <input th:if="*{id} != 0" type="password" class="form-control" placeholder="Password" th:field="*{password}"/>
+                    <div class="form-group">
+                        <div class="row">
+                            <label for="phone" class="col-sm-2 ">Phone</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="phone" placeholder="Phone" th:field="*{phone}" />
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="role" class="col-sm-2 col-form-label">Role</label>
+                    <div class="form-group">
+                        <div class="row">
+                            <label for="password" class="col-sm-2 " id="password">Password</label>
+                            <div class="col-sm-10">
+                                <input th:if="*{id} == 0" type="password" class="form-control" placeholder="Password" th:field="*{password}" required="required"/>
+                                <input th:if="*{id} != 0" type="password" class="form-control" placeholder="Password" th:field="*{password}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <div class="row">
+                        <label for="role" class="col-sm-2 ">Role</label>
                         <div class="col-sm-10">
                             <select th:field="*{role}" class="form-control" id="role">
                                 <option th:each="role: ${roles}" th:value="${role.id}" th:text="${role.name}"></option>
                             </select>
                         </div>
+                        </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="enabled" class="col-sm-2 col-form-label">Enable</label>
+                    <div class="form-group">
+                        <div class="row">
+                        <label for="enabled" class="col-sm-2 ">Enable</label>
                         <div class="col-sm-10">
                             <input class="form-check-input" type="checkbox" id="enabled" th:field="*{enabled}" />
+                        </div>
                         </div>
                     </div>
                     <input type="hidden" th:field="*{id}" />

@@ -78,4 +78,8 @@ public class AccountController {
         }
         return mv;
     }
+    @ModelAttribute("roles")
+    public List<Role> getRoles() {
+        return roleService.getAll();
+    }
 }
