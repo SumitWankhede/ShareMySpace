@@ -17,8 +17,11 @@ public interface ReviewRepository extends JpaRepository<Review, Long>{
 	List<Review> getReviewByProperty(Property property);
 	List<Review> getReviewByUser(User user);
 	
-	//List<Review> getAllReview(User user);
+	//Get all review by property
 	@Query("select review from Review review join fetch review.property property where property.id = :propertyId")
 	List<Review> getReviewByPropertyId(@Param("propertyId") int propertyId);
 	
+	// Get all review by user
+	@Query("select review from Review review join fetch review.user user where user.id = :userId")
+	List<Review> getReviewByUserId(@Param("userId") long userId);
 }

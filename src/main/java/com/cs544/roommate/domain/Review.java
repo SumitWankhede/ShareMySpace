@@ -36,41 +36,13 @@ public class Review{
     public Review() {
     	date = new Date();
     }
-    
+
 	public long getId() {
 		return id;
 	}
 
-	public String getReviewText() {
-		return reviewText;
-	}
-
-	public void setReviewText(String reviewText) {
-		this.reviewText = reviewText;
-	}
-
-	public Date getDate() {
-		return date;
-	}
-
-	public void setDate(Date date) {
-		this.date = new Date();
-	}
-
-	public Property getProperty() {
-		return property;
-	}
-
-	public void setProperty(Property property) {
-		this.property = property;
-	}
-	
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public int getRating() {
@@ -81,6 +53,14 @@ public class Review{
 		this.rating = rating;
 	}
 
+	public String getReviewText() {
+		return reviewText;
+	}
+
+	public void setReviewText(String reviewText) {
+		this.reviewText = reviewText;
+	}
+
 	public String getTitle() {
 		return title;
 	}
@@ -89,8 +69,29 @@ public class Review{
 		this.title = title;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public Date getDate() {
+		return date;
 	}
 
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public Property getProperty() {
+		return property;
+	}
+
+	public void setProperty(Property property) {
+		this.property = property;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+   
+    
 }

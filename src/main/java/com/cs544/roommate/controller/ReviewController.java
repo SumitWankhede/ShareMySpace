@@ -2,6 +2,8 @@ package com.cs544.roommate.controller;
 
 import java.util.List;
 
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.cs544.roommate.config.SessionListener;
+import com.cs544.roommate.config.SmtpMailSender;
 import com.cs544.roommate.domain.Property;
 import com.cs544.roommate.domain.Review;
 import com.cs544.roommate.domain.User;
@@ -28,66 +32,118 @@ public class ReviewController {
 	@Autowired
 	private PropertyService propertyService;
 	@Autowired
+	private SmtpMailSender reviewMailSender;
+	@Autowired
+	private SessionListener sessionListener;
+
+	@Autowired
 	private UserService userService;
 
-	@GetMapping("/review")
-	public String createReview(Model model) {
+	@RequestMapping(value = "review/{propertyId}/{userId}", method = RequestMethod.GET)
+	public String createReview(Model model, @PathVariable("propertyId") String propertyId,
+			@PathVariable("userId") String userId) {
 		model.addAttribute("review", new Review());
+		Property property = propertyService.getPropertyById(propertyId);
+		User user = userService.getUserById(Long.parseLong(userId));
+		System.out.println("Get user id : " + user.getId());
+		model.addAttribute("property", property);
+		model.addAttribute("user", user);
 		return "review/create";
 	}
 
+	// Retrieve all reviews
 	@RequestMapping(value = "review/list", method = RequestMethod.GET)
 	public String list(Model model) {
 		model.addAttribute("reviews", reviewService.findAll());
 		return "review/list";
 	}
 
-	@RequestMapping(value = "review/reviewList", method = RequestMethod.GET)
-	public String reviewList(Model model, @RequestParam(value="propertyId") String propertyId) {
+	// To ignore first
+	@RequestMapping(value = "review/create", method = RequestMethod.GET)
+	private String get(Model model, @ModelAttribute("review") Review review,
+			@ModelAttribute("property") Property property, @ModelAttribute("user") User user,
+			@RequestParam(value = "propertyId", required = false) String propertyId,
+			@RequestParam(value = "reviewId", required = false) String reviewId,
+			@RequestParam(value = "userId", required = false) String userId, BindingResult result) {
+
+		return "/review/create";
+	}
+
+	@RequestMapping(value = "review/create/{propertyId}/{userId}", method = RequestMethod.POST)
+	private String create(Model model, @ModelAttribute("review") Review review,
+			@RequestParam(value = "id", required = false) Long id, @PathVariable("propertyId") String propertyId,
+			@PathVariable("userId") String userId, BindingResult result) {
+		System.out.println("id>>>>>" + id);
+		if (id != null && id > 0) {
+			System.out.println("Call to update" + propertyId);
+			propertyService.addReview(propertyId, review);
+			userService.addReview(userId, review);
+			reviewService.updateReview(id, review);
+		} else {
+			propertyService.addReview(propertyId, review);
+			System.out.println("user Id  :" + userId);
+			userService.addReview(userId, review);
+		}
+		model.addAttribute("reviews", reviewService.getReviewByUserId(Long.valueOf(userId)));
+		// return "redirect:/review/list";
+		try {
+			reviewMailSender.sendMail(sessionListener.getUser().getEmail(), "Added!!!!", "Some text here.");
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+		return "redirect:/review/reviewsByUser/" + userId;
+	}
+
+	@RequestMapping(value = "review/edit/{reviewId}", method = RequestMethod.GET)
+	private String get(Model model, @ModelAttribute("review") Review review, @PathVariable("reviewId") int reviewId,
+			BindingResult result) {
+		System.out.println("id in edit " + reviewId);
+		if (reviewId > 0) {
+			Review reviewToUpdate = reviewService.getReview(reviewId);
+			Property property = reviewToUpdate.getProperty();
+			User user = reviewToUpdate.getUser();
+			model.addAttribute("review", reviewToUpdate);
+			model.addAttribute("property", property);
+			model.addAttribute("user", user);
+			// model.addAttribute("id",reviewId);
+		}
+
+		return "/review/create";
+	}
+
+	@RequestMapping(value = "review/edit/{reviewId}", method = RequestMethod.POST)
+	private String edit(Model model, @ModelAttribute("review") Review review, @ModelAttribute("user") User user,
+			@PathVariable("reviewId") Long reviewId, BindingResult result) {
+		System.out.println("here" + user.getId());
+		reviewService.updateReview(reviewId, review);
+		model.addAttribute("reviews", reviewService.getReviewByUserId(user.getId()));
+		return "redirect:/review/list";
+
+	}
+
+	@RequestMapping(value = "review/delete/{reviewId}", method = RequestMethod.POST)
+	public String delete(Model model, @PathVariable("reviewId") int reviewId) {
+		Review review = reviewService.getReview(reviewId);
+		reviewService.deleteReview(review);
+		model.addAttribute("reviews", reviewService.getReviewByUserId((review.getUser()).getId()));
+		return "/review/list";
+	}
+
+	// Retrieve review list by propertyId
+	@RequestMapping(value = "review/reviewByProperty/{propertyId}", method = RequestMethod.GET)
+	public String reviewListByPropertyId(Model model, @PathVariable(value = "propertyId") String propertyId) {
 		List<Review> reviews = reviewService.getReviewByPropertyId(new Integer(propertyId));
+		Property property = propertyService.getProperty(new Integer(propertyId));
+		model.addAttribute("property ", property);
 		model.addAttribute("reviews", reviews);
 		return "review/list";
 	}
 
-	@RequestMapping(value = "review/create", method = RequestMethod.GET)
-	private String get(Model model, @ModelAttribute("review") Review review,
-			@RequestParam(value = "propertyId" ,required=false) String propertyId,
-			@RequestParam(value = "reviewId" ,required=false) String reviewId,
-			@RequestParam(value = "userId" ,required=false) String userId, BindingResult result) {
-		return "/review/create";
+	// Retrieve review list by userId
+	@RequestMapping(value = "review/reviewsByUser/{userId}", method = RequestMethod.GET)
+	public String reviewListByUserId(Model model, @PathVariable(value = "userId") String userId) {
+		List<Review> reviews = reviewService.getReviewByUserId(Long.parseLong(userId));
+		model.addAttribute("reviews", reviews);
+		return "review/list";
 	}
-
-	@RequestMapping(value = "review/create/{id}", method = RequestMethod.POST)
-	private String create(Model model, @ModelAttribute("review") Review review,
-			@PathVariable("id") String propertyId, BindingResult result) { 
-		propertyService.addReview(propertyId, review);
-		model.addAttribute("reviews",reviewService.findAll());
-		return "redirect:/review/list";
-		
-	}
-	
-	@RequestMapping(value = "review/edit/{reviewId}", method = RequestMethod.GET)
-	private String get(Model model, @ModelAttribute("review") Review review,
-			@PathVariable("reviewId") String reviewId, BindingResult result) {
-		model.addAttribute("review" , reviewService.getReview(Long.parseLong(reviewId)));
-		return "/review/create";
-	}
-	
-	@RequestMapping(value = "review/edit/{reviewId}", method = RequestMethod.POST)
-	private String edit(Model model, @ModelAttribute("review") Review review,
-			@PathVariable("reviewId") String reviewId, BindingResult result) { 
-		System.out.println("here");
-		reviewService.updateReview(reviewId , review);
-		model.addAttribute("reviews",reviewService.findAll());
-		return "redirect:/review/list";
-		
-	}
-	
-	@RequestMapping(value = "review/delete/{reviewId}", method = RequestMethod.POST)
-	public String delete(@PathVariable("reviewId") int reviewId) {
-		Review review = reviewService.getReview(reviewId);
-		reviewService.deleteReview(review);
-		return "redirect:/review/list";
-	}
-
 }

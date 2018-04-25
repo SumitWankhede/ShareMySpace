@@ -45,10 +45,22 @@ public class ReviewService implements IReviewService {
 		return reviewRepository.getReviewByPropertyId(propertyId);
 	}
 	
-	public void updateReview(String reviewId , Review review){
-		Review toUpdate = getReview(Long.parseLong(reviewId));
+	@Transactional
+	public List<Review> getReviewByUserId(Long userId) {
+		System.out.println(userId);
+		return reviewRepository.getReviewByUserId(userId);
+	}
+
+	public void updateReview(Long reviewId , Review review){
+		Review toUpdate = getReview(reviewId);
 		toUpdate.setTitle(review.getTitle());
 		toUpdate.setReviewText(review.getReviewText());
+		toUpdate.setRating(review.getRating());
+		
+		System.out.println("review.getTitle()" + review.getTitle() );
+		System.out.println("review.getReviewText()" + review.getReviewText() );
+		System.out.println("review.getRating()" + review.getRating() );
+		reviewRepository.save(toUpdate);
 	}
 
 	@Transactional
