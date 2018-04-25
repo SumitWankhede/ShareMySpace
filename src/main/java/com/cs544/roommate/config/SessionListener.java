@@ -18,17 +18,17 @@ import javax.servlet.http.HttpSession;
 public class SessionListener {
 
   @Autowired
-  UserService service;
+  UserService userService;
 
   @Autowired
-  HttpSession session;
+  HttpSession httpSession;
 
   public User getUser() {
-    if (session.getAttribute("loggedUser") != null) {
-      return (User) session.getAttribute("loggedUser");
+    if (httpSession.getAttribute("loggedUser") != null) {
+      return (User) httpSession.getAttribute("loggedUser");
     }
-    User user = service.getUserByEmail(getPrincipal());
-    session.setAttribute("loggedUser", user);
+    User user = userService.getUserByEmail(getPrincipal());
+    httpSession.setAttribute("loggedUser", user);
     return user;
 
   }
