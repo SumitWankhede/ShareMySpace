@@ -110,6 +110,7 @@
 			           <th scope="col">Updated Date</th>
 			           <th scope="col">Property Type</th>
 			           <th scope="col">Available Rooms</th>
+                        <th scope="col" style="width: 100px;"></th>
 			        </tr>
 			        </thead>
 			        <tbody>
@@ -121,6 +122,11 @@
 		                <th scope="col" th:text="${property.description}"></th>
 		              	<td scope="col" th:text="${property.updatedDate}"></td>
 		                <th scope="col" th:text="${property.availableRooms}"></th>
+                        <th>
+                            <form method="post" th:action="@{'/property/delete/'+${property.id}}">
+                                <input type="submit" class="btn btn-danger" value="X" style=" background-color: #ac2925!important;padding: 0!important;"/>
+                            </form>
+                        </th>
 	           		</tr>
 	           		</tbody>
 	           		</table>

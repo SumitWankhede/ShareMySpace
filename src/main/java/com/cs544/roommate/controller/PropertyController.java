@@ -41,7 +41,7 @@ public class PropertyController {
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String list(Model model, @ModelAttribute("user") User user) {
 		model.addAttribute("properties", propertyService.getPropertyList());
-		return "propertyList";
+		return "property/propertyList";
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
@@ -71,11 +71,11 @@ public class PropertyController {
 		propertyService.updateProperty(property);
 	}
 
-	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	public String deleteItem(@PathVariable("id") Integer id) {
 		propertyService.removeProperty(id);
-		return "redirect:/property";
+		return "redirect:/property/";
 	}
 	
 //	@PostMapping(value="/create")
