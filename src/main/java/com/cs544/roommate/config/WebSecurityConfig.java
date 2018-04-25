@@ -35,11 +35,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
                 .antMatchers("/", "/index", "/home", "/login/",
                 				"/css/**", "/modules/**",
-                				"/signup", "/js/**",
+                				"/signup", "/js/**","/search/**","/property/*",
                 				"/images/**","/jquery/**","/review/**").permitAll()
-                .antMatchers("/owner/**","/property/**").hasRole("OWNER")
+                .antMatchers("/owner/**","/property/add","/property/delete/**").hasRole("OWNER")
                 .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/search/**").hasAnyRole("USER","ADMIN","OWNER")
                 .anyRequest().authenticated()
                 .and()
             .formLogin().loginPage("/login/")
