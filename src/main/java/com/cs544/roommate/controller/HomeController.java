@@ -6,9 +6,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.cs544.roommate.domain.Address;
+import com.cs544.roommate.domain.Property;
+import com.cs544.roommate.domain.Room;
 import com.cs544.roommate.service.PropertyService;
-import com.cs544.roommate.utils.SearchParam;
+import com.cs544.roommate.domain.SearchParam;
 
 @Controller
 public class HomeController {
@@ -20,6 +25,10 @@ public class HomeController {
 		ModelAndView mv = new ModelAndView("index");
 		
 		 mv.addObject("index", propertyService.getPropertyList());
+		 
+		 mv.addObject("property", new Property());
+		 mv.addObject("room", new Room());
+		 mv.addObject("address", new Address());
 
 		return mv;
 	}
@@ -42,7 +51,7 @@ public class HomeController {
 		return mv;
 	}
 
-	@PostMapping({ "/search" })
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public ModelAndView search(Model model, @ModelAttribute("search") SearchParam searchParam) {
 		ModelAndView mv = new ModelAndView("search");
 		mv.addObject("search",

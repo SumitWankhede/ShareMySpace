@@ -1,4 +1,4 @@
-package com.cs544.roommate.utils;
+package com.cs544.roommate.domain;
 
 public class SearchParam {
 	  private String location;
@@ -6,6 +6,32 @@ public class SearchParam {
 	  private int noOfRooms;
 	  private int budgetMin;
 	  private int budgetMax;
+	  private int budget;
+	  
+	public void setBudget(int budget) {
+		this.budget = budget;
+		switch(this.budget) {
+		case 1:
+			budgetMin=0;
+			budgetMax=300;
+			break;
+		case 2:
+			budgetMin=300;
+			budgetMax=500;
+			break;
+		case 3:
+			budgetMin=500;
+			budgetMax=1000;
+			break;
+		case 4:
+			budgetMin=1000;
+			budgetMax=30000;
+			break;
+			default:
+				budgetMin=0;
+				budgetMax=0;
+		}
+	}
 	public String getLocation() {
 		return location;
 	}

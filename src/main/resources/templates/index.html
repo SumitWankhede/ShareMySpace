@@ -66,7 +66,7 @@
 			<div class="header">
 				<div class="logo">
 					<a href="index.html"><img src="../../images/logo4.jpg"
-						width=200px height=100px th:attr="src=@{../../images/logo4.jpg}"
+						width="200px" height="100px" th:attr="src=@{../../images/logo4.jpg}"
 						alt="Share My Space" /></a>
 				</div>
 				<div class="h_right">
@@ -121,7 +121,8 @@
 					<div class="slide_content">
 						<div class="slide_content_wrap">
 							<h5 class="title1">
-								<i class="bg"></i><font face="Lato" size="6px">LOOK UP PLACES TO RENT</font>
+								<i class="bg"></i><font face="Lato" size="6px">LOOK UP
+									PLACES TO RENT</font>
 							</h5>
 						</div>
 					</div>
@@ -134,7 +135,8 @@
 					<div class="slide_content">
 						<div class="slide_content_wrap">
 							<h5 class="title1">
-								<i class="bg"></i><font face="Lato" size="6px">LOOK UP PLACES TO RENT</font>
+								<i class="bg"></i><font face="Lato" size="6px">LOOK UP
+									PLACES TO RENT</font>
 							</h5>
 						</div>
 					</div>
@@ -166,37 +168,52 @@
 								<li class="span1_of_1">
 									<h5>Type Of Room</h5>
 									<div class="section_room">
-										<!-- 					      <select th:field="*{genreShow}">
-					      	<option th:each="type: ${genres}" th:text="${type}" th:value="${type}"></option>
-					      	<option th:text="${'ALL'}" th:value="${'ALL'}"></option>
-					      </select> -->
+										<select th:field="*{typeOfRoom}">
+											<option value="Any">Any</option>
+											<option value="Studio">Studio</option>
+											<option value="Single Room">Single Room</option>
+											<option value="Apartment">Apartment</option>
+										</select>
 									</div>
 								</li>
 								<li class="span1_of_1 left">
 									<h5>Select Location</h5>
 									<div class="section_room">
-										<!-- 					      <select th:field="*{genreShow}">
-					      	<option th:each="type: ${genres}" th:text="${type}" th:value="${type}"></option>
-					      	<option th:text="${'ALL'}" th:value="${'ALL'}"></option>
-					      </select> -->
+										<select th:field="*{location}">
+											<option value="Any">Any</option>
+											<option value="New York">New York</option>
+											<option value="Los Angeles">Los Angeles</option>
+											<option value="Chicago">Chicago</option>
+											<option value="Houston">Houston</option>
+											<option value="Philadelphia">Philadelphia</option>
+											<option value="San Diego">San Diego</option>
+											<option value="Dallas">Dallas</option>
+											<option value="San Jose">San Jose</option>
+											<option value="Seattle">Seattle</option>
+											<option value="Washington">Washington</option>
+											<option value="Boston">Boston</option>
+											<option value="Detroit">Detroit</option>
+											<option value="Las Vegas">Las Vegas</option>
+											<option value="Fairfield">Fairfield</option>
+										</select>
 									</div>
 								</li>
 								<li class="span1_of_1 left">
 									<h5>No of Rooms</h5>
 									<div class="section_room">
-										<!-- 					      <select th:field="*{genreShow}">
-					      	<option th:each="type: ${genres}" th:text="${type}" th:value="${type}"></option>
-					      	<option th:text="${'ALL'}" th:value="${'ALL'}"></option>
-					      </select> -->
+										<input type="text" class="form-control" th:field="*{noOfRooms}"/>										
 									</div>
 								</li>
 								<li class="span1_of_1 left">
 									<h5>Budget</h5>
 									<div class="section_room">
-										<!-- 					      <select th:field="*{genreShow}">
-					      	<option th:each="type: ${genres}" th:text="${type}" th:value="${type}"></option>
-					      	<option th:text="${'ALL'}" th:value="${'ALL'}"></option>
-					      </select> -->
+										<select th:field="*{budget}">
+											<option value="Any">Any</option>
+											<option value="1">UP TO $300</option>
+											<option value="2">$300 TO $500</option>
+											<option value="3">$500 TO $1000</option>
+											<option value="4">$1000 AND ABOVE</option>
+										</select>
 									</div>
 								</li>
 								<li class="span1_of_1 left"><input type="submit"
