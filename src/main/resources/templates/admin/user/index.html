@@ -10,13 +10,6 @@
 <body>
 <div th:replace="fragments/menu :: menu"></div>
 <div class="container">
-    <form th:action="@{/admin/user/create}" method="get">
-        <button type="submit" class="btn btn-primary" aria-label="Left Align">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create
-        </button>
-    </form>
-    <br/>
-    <br/>
     <table class="table">
         <thead>
         <tr>
@@ -24,7 +17,7 @@
             <th scope="col">Username</th>
             <th scope="col">Email</th>
             <th scope="col">Phone</th>
-            <th scope="col">Password</th>
+            <th scope="col">Price</th>
             <th>
 
             </th>
@@ -39,7 +32,7 @@
             <td th:text="${user.name}"></td>
             <td th:text="${user.email}"></td>
             <td th:text="${user.phone}"></td>
-            <td th:text="${user.password}"></td>
+            <td th:text="${user.price}"></td>
             <td>
                 <a th:href="@{/admin/user/edit(id=${user.id})}" class="btn btn-info">Edit</a>
             </td>
@@ -53,5 +46,6 @@
         </tbody>
     </table>
 </div>
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>
