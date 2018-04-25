@@ -17,7 +17,7 @@
 				<h3 class="panel-title">Post Your Room</h3>
 			</div>
 			<div class="panel-body">
-				<form th:object="${property}" th:action="@{/add}"
+				<form th:object="${property}" th:action="@{/property/add}"
 					method="post">
 						<input type="hidden" th:field="*{id}" /> 
 					<div class="form-group row">
@@ -62,14 +62,14 @@
 						</div>
 					</div>
 
-					<form th:object="${room}" method="post" modelArrtibute="room">
+					<!-- <form th:object="${room}" method="post" modelArrtibute="room"> -->
 
 						<div class="form-group row">
 							<label for="type" class="col-sm-2 col-form-label">Room
 								Price</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control"
-									th:field="*{roomPrice}" placeholder="..."> </input>
+									th:field="*{room.roomPrice}" placeholder="..."> </input>
 							</div>
 						</div>
 
@@ -78,7 +78,7 @@
 								Price</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control"
-									th:field="*{utilitiesPrice}" placeholder="..."> </input>
+									th:field="*{room.utilitiesPrice}" placeholder="..."> </input>
 							</div>
 						</div>
 						<!-- Room type enum -->
@@ -86,7 +86,7 @@
 							<label for="type" class="col-sm-2 col-form-label">Room
 								Type</label>
 							<div class="col-sm-10">
-								<select th:field="*{roomType}">
+								<select th:field="*{room.roomType}">
 									<option
 										th:each="type: ${T(com.cs544.roommate.domain.RoomType).values()}"
 										th:text="${type}" th:value="${type}"></option>
@@ -98,7 +98,7 @@
 							<label for="type" class="col-sm-2 col-form-label">Area
 								(sq.ft)</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" th:field="*{area}"
+								<input type="text" class="form-control" th:field="*{room.area}"
 									placeholder="..."> </input>
 							</div>
 						</div>
@@ -107,45 +107,45 @@
 							<label for="type" class="col-sm-2 col-form-label">Furnished
 								Status</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" th:field="*{furnishedStatus}"
+								<input type="text" class="form-control" th:field="*{room.furnishedStatus}"
 									placeholder="..."> </input>
 							</div>
 						</div>
 
-						<div class="form-group row">
+						<!-- <div class="form-group row">
 							<label for="type" class="col-sm-2 col-form-label">Available
 								From</label>
 							<div class="col-sm-10">
 								<input type="date" class="form-control"
-									th:field="*{availableDate}"
+									th:field="*{room.availableDate}"
 									placeholder="Summarize your stay or highlight an interesting detail">
 								</input>
 							</div>
-						</div>
+						</div> -->
 
 						<div class="form-group row">
 							<label for="type" class="col-sm-2 col-form-label">No. of
 								room mates</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control"
-									th:field="*{noOfRoommates}"
+									th:field="*{room.noOfRoommates}"
 									placeholder="Summarize your stay or highlight an interesting detail">
 								</input>
 							</div>
 						</div>
 
 
-					</form>
+					<!-- </form> -->
 
 
-					<form th:object="${address}" method="post" modelArrtibute="address">
+					<!-- <form th:object="${address}" method="post" modelArrtibute="address"> -->
 						<div>
 							Address :
 							<div class="form-group row">
 								<label for="type" class="col-sm-2 col-form-label">Street</label>
 								<div class="col-sm-10">
 									<input type="text" class="form-control"
-										th:field="*{street}" placeholder=".."> </input>
+										th:field="*{address.street}" placeholder=".."> </input>
 								</div>
 							</div>
 						</div>
@@ -153,21 +153,21 @@
 							<label for="type" class="col-sm-2 col-form-label">City</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control"
-									th:field="*{city}" placeholder=".."> </input>
+									th:field="*{address.city}" placeholder=".."> </input>
 							</div>
 						</div>
 						<div class="form-group row">
 							<label for="type" class="col-sm-2 col-form-label">State</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control"
-									th:field="*{state}" placeholder=".."> </input>
+									th:field="*{address.state}" placeholder=".."> </input>
 							</div>
 						</div>
 						<div class="form-group row">
 							<label for="type" class="col-sm-2 col-form-label">Zip</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control"
-									th:field="*{zip}" placeholder=".."> </input>
+									th:field="*{address.zip}" placeholder=".."> </input>
 							</div>
 						</div>
 					
@@ -179,7 +179,7 @@
 						type="submit" class="btn btn-primary" value="Update"
 						th:if="*{id} != 0" />
 						
-					</form>
+					<!-- </form> -->
 
 					
 				</form>
