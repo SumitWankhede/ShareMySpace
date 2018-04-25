@@ -1,10 +1,5 @@
 package com.cs544.roommate.controller;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -14,13 +9,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.context.request.RequestContextHolder;
 
 import com.cs544.roommate.domain.Address;
 import com.cs544.roommate.domain.Property;
-import com.cs544.roommate.domain.Review;
 import com.cs544.roommate.domain.Room;
+import com.cs544.roommate.domain.User;
 import com.cs544.roommate.service.IPropertyService;
 
 @Controller
@@ -34,9 +29,8 @@ public class PropertyController {
 		this.propertyService = roomService;
 	}
 
-	@RequestMapping(value = "", method = RequestMethod.GET)
+	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public String property(Model model) {
-		//reviewService.saveReview(review);
 		model.addAttribute("property", new Property());
 		model.addAttribute("room", new Room());
 		model.addAttribute("address", new Address());
@@ -44,26 +38,32 @@ public class PropertyController {
 	}
 
 	
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(Model model) {
-		//return propertyService.getPropertyList();	
+	@RequestMapping(value = "", method = RequestMethod.GET)
+	public String list(Model model, @ModelAttribute("user") User user) {
 		model.addAttribute("properties", propertyService.getPropertyList());
 		return "propertyList";
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	@ResponseStatus(HttpStatus.CREATED)
-	public String addProperty(@ModelAttribute("property") Property property, @ModelAttribute("room") Room room, @ModelAttribute("address") Address address) {
-		property.setRoom(room);
-		property.setAddress(address);
+	public String addProperty(@ModelAttribute("property") Property property) {
 		propertyService.addProperty(property);
-		return "redirect:/list";
+		return "redirect:/property/";
 	}
-
+	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public @ResponseBody Property findProperty(@PathVariable("id") int id) {
-		return propertyService.getProperty(id);
+	public String findProperty(@PathVariable("id") int id, Model model) {
+		Property property = propertyService.getProperty(id);
+		model.addAttribute(property);
+		return "/property/create";
+		//return propertyService.getProperty(id);
 	}
+	
+	
+	
+//	@GetMapping(value = "/{ownerid}/list")
+//	public @ResponseBody List<Property> findPropertyByOwnerId(@PathVariable("ownerid") int ownerId) {
+//		return propertyService.getPropertyByOwnerId(ownerId);
+//	}
 
 	@RequestMapping(value = "/", method = RequestMethod.PUT)
 	@ResponseStatus(HttpStatus.OK)
@@ -71,11 +71,15 @@ public class PropertyController {
 		propertyService.updateProperty(property);
 	}
 
-	@RequestMapping(value = "/room/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
 	@ResponseStatus(HttpStatus.OK)
-	public void deleteItem(@PathVariable("id") Integer id) {
+	public String deleteItem(@PathVariable("id") Integer id) {
 		propertyService.removeProperty(id);
+		return "redirect:/property";
 	}
+	
+//	@PostMapping(value="/create")
+//	public String 
 	
 //	@ModelAttribute("propertyTypes")
 //	public List<Property.PropertyType> propertyTypes(){
