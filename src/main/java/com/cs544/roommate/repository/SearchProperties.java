@@ -15,22 +15,19 @@ public class SearchProperties {
 
 	public static List<Property> search(String location, String typeOfRoom, int noOfRooms, int budgetMin, int budgetMax) {
 
-		String sql = "select distinct p from property p " + " where 1 = 1";
+		String sql = "SELECT distinct p FROM property p " + " WHERE 1 = 1";
 
 		if (!StringUtils.isEmpty(location)) {
-			sql += " and LOWER(p.area) like CONCAT('%', LOWER(:location), '%')";
+			sql += " AND LOWER(p.area) like CONCAT('%', LOWER(:location), '%')";
 		}
 		if (!StringUtils.isEmpty(typeOfRoom) && !"Any".equals(typeOfRoom)) {
-			sql += " and p.room_type = :typeOfRoom";
+			sql += " AND p.room_type = :typeOfRoom ";
 		}
 		if (noOfRooms >= 1) {
-			sql += " and p.available_rooms = :noOfRooms";
+			sql += " AND p.available_rooms = :noOfRooms ";
 		}
-		if (budgetMin >= 1) {
-			sql += " and p.room_price >= :budgetMin";
-		}
-		if (budgetMax >= 1) {
-			sql += " and p.room_price <= :budgetMax";
+		if (budgetMin >= 1 && budgetMax >= 1) {
+			sql += " AND p.room_price BETWEEN :budgetMin AND :budgetMax";
 		}
 
 		TypedQuery<Property> query = em.createQuery(sql, Property.class);
