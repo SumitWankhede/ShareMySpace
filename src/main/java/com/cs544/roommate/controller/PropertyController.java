@@ -1,7 +1,12 @@
 package com.cs544.roommate.controller;
 
+import com.cs544.roommate.config.AsyncEmailSender;
+import com.cs544.roommate.config.SessionListener;
+import com.cs544.roommate.config.SmtpMailSender;
+import com.cs544.roommate.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,12 +22,21 @@ import com.cs544.roommate.domain.Property;
 import com.cs544.roommate.domain.Room;
 import com.cs544.roommate.domain.User;
 import com.cs544.roommate.service.IPropertyService;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.mail.MessagingException;
 
 @Controller
 @RequestMapping("property")
 public class PropertyController {
 	
 	private IPropertyService propertyService;
+	@Autowired
+    private SmtpMailSender propertyMailSender;
+    @Autowired
+    private SessionListener sessionListener;
+
+    AsyncEmailSender emailSender = new AsyncEmailSender();
 	
 	@Autowired
 	public void setPropertyService(IPropertyService roomService) {
@@ -71,10 +85,10 @@ public class PropertyController {
 		propertyService.updateProperty(property);
 	}
 
-	@RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-	@ResponseStatus(HttpStatus.OK)
+	@RequestMapping(value = "/delete/{id}")
 	public String deleteItem(@PathVariable("id") Integer id) {
-		propertyService.removeProperty(id);
+	    propertyService.removeProperty(id);
+        emailSender.sendEmail( propertyMailSender,  sessionListener);
 		return "redirect:/property/";
 	}
 	
