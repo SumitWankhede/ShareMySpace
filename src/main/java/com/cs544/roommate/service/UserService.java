@@ -3,6 +3,8 @@
  */
 package com.cs544.roommate.service;
 
+import com.cs544.roommate.domain.Property;
+import com.cs544.roommate.domain.Review;
 import com.cs544.roommate.domain.User;
 import com.cs544.roommate.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,4 +53,15 @@ public class UserService implements  IUserService{
         return userRepository.save(user);
     }
 
+    public User getUserById(String userId) {
+		return userRepository.getOne(Long.parseLong(userId));
+	}
+    
+    public void addReview(String userId, Review review) {
+		User toUpdate = getUserById(userId);
+		toUpdate.addReview(review);
+		review.setUser(toUpdate);
+		userRepository.save(toUpdate);
+
+	}
 }
