@@ -28,13 +28,8 @@ public class AccountController {
     private UserService userService;
 
     @Autowired
-    private RoleService roleService;
-
-    @Autowired
     private SessionListener sessionListener;
 
-    @Autowired
-    private SmtpMailSender mailSender;
 
     @GetMapping({"/update"})
     public ModelAndView doHome(Model model) {
@@ -55,31 +50,4 @@ public class AccountController {
         return mv;
     }
 
-    @GetMapping({"/signup"})
-    public ModelAndView doSignUp(Model m, @ModelAttribute("user") User user) {
-        ModelAndView mv = new ModelAndView("profile/signup");
-        user.addRole(roleService.findOne(2));
-        user.setEnabled(true);
-        return mv;
-    }
-
-    @PostMapping("/signup")
-    public ModelAndView createAccount(Model model, @ModelAttribute("user") User user) {
-        ModelAndView mv = new ModelAndView("profile/signup");
-        User users = userService.getUserByEmail(user.getEmail());
-        if (users != null) {
-           return mv;
-        }
-        userService.save(user);
-        try{
-            mailSender.sendMail(user.getEmail(),"Login information","Congratulations~!. Welcome to Share My Space website.. ");
-        }catch (MessagingException e){
-            e.printStackTrace();
-        }
-        return mv;
-    }
-    @ModelAttribute("roles")
-    public List<Role> getRoles() {
-        return roleService.getAll();
-    }
 }
