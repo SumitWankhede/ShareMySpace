@@ -57,48 +57,28 @@
                     <div class="panel-heading"> <h3 class="panel-title">User</h3> </div>
                     <div class="panel-body">
                         <form th:object="${user}" th:action="@{/account/update}" method="post">
-                            <div class="form-group">
-                                <div class="row">
-                                    <label for="price" class="col-lg-2">Price</label>
-                                    <div class="col-lg-10">
-                                        <input type="text" class="form-control" id="price" placeholder="Price" th:field="*{price}" required="true"/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="row">
-                                    <label for="username" class="col-sm-2">Username</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="username" placeholder="Name" th:field="*{name}" required="true"/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="row">
-                                    <label for="email" class="col-sm-2">Email</label>
-                                    <div class="col-sm-10">
-                                        <input type="email" readonly="readonly" class="form-control" id="email" placeholder="Email" th:field="*{email}" required="required"/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="row">
-                                    <label for="phone" class="col-sm-2">Phone</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="phone" placeholder="Phone" th:field="*{phone}" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="row">
-                                    <label for="password" class="col-sm-2">Password</label>
-                                    <div class="col-sm-10">
-                                        <input type="password" class="form-control" id="password" placeholder="Password" th:field="*{password}"/>
-                                    </div>
-                                </div>
-                            </div>
                             <input type="hidden" th:field="*{enabled}" value="true" />
                             <input type="hidden" th:field="*{id}" />
+                            <div class="form-group">
+                                <label>Price : </label>
+                                <input type="text" class="form-control" id="price" placeholder="Price" th:field="*{price}" required="true"/>
+                             </div>
+                            <div class="form-group">
+                                <label>Username : </label>
+                                <input type="text" class="form-control" id="username" placeholder="Name" th:field="*{name}" required="true"/>
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" readonly="readonly" class="form-control" id="email" placeholder="Email" th:field="*{email}" required="required"/>
+                             </div>
+                            <div class="form-group">
+                                <label>Phone</label>
+                                <input type="text" class="form-control" id="phone" placeholder="Phone" th:field="*{phone}" />
+                             </div>
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input type="password" class="form-control" id="password" placeholder="Password" th:field="*{password}"/>
+                            </div>
                             <div th:switch="${user.role}">
                                 <p th:case="2"> <input type="hidden" th:field="*{role}" value="2"/></p>
                                 <p th:case="3"> <input type="hidden" th:field="*{role}" value="3"/></p>

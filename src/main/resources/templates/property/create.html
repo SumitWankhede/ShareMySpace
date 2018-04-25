@@ -20,102 +20,120 @@
 				<form th:object="${property}" th:action="@{/property/add}"
 					method="post">
 						<input type="hidden" th:field="*{id}" /> 
-					<div class="form-group row">
-						<label for="price" class="col-sm-2 col-form-label">Property
-							Type</label>
-						<div class="col-sm-10">
-							<select th:field="*{propertyType}">
-								<option
-									th:each="type: ${T(com.cs544.roommate.domain.PropertyType).values()}"
-									th:text="${type}" th:value="${type}"></option>
-							</select>
-						</div>
+					<div class="form-group">
+                        <div class="row">
+                            <label for="price" class="col-lg-4">Property
+                                Type</label>
+                            <div class="col-lg-8">
+                                <select th:field="*{propertyType}">
+                                    <option
+                                        th:each="type: ${T(com.cs544.roommate.domain.PropertyType).values()}"
+                                        th:text="${type}" th:value="${type}"></option>
+                                </select>
+                            </div>
+                        </div>
 					</div>
 
-					<div class="form-group row">
-						<label for="type" class="col-sm-2 col-form-label">Property
-							Title</label>
-						<div class="col-sm-10">
-							<input type="text" class="form-control" th:field="*{title}"
-								placeholder="..."> </input>
-						</div>
+					<div class="form-group">
+                        <div class="row">
+                            <label for="type" class="col-lg-4">Property
+                                Title</label>
+                            <div class="col-lg-8">
+                                <input type="text" class="form-control" th:field="*{title}"
+                                    placeholder="..."> </input>
+                            </div>
+                        </div>
 					</div>
 
-					<div class="form-group row">
-						<label for="type" class="col-sm-2 col-form-label">Available
-							Rooms</label>
-						<div class="col-sm-10">
-							<input type="text" class="form-control"
-								th:field="*{availableRooms}"
-								placeholder="Summarize your stay or highlight an interesting detail">
-							</input>
-						</div>
+					<div class="form-group">
+                        <div class="row">
+                            <label for="type" class="col-lg-4">Available
+                                Rooms</label>
+                            <div class="col-lg-8">
+                                <input type="text" class="form-control"
+                                    th:field="*{availableRooms}"
+                                    placeholder="Summarize your stay or highlight an interesting detail">
+                                </input>
+                            </div>
+                        </div>`
 					</div>
 
-					<div class="form-group row">
-						<label for="type" class="col-sm-2 col-form-label">Property
-							Description</label>
-						<div class="col-sm-10">
-							<textarea rows="5" class="form-control" th:field="*{description}"
-								placeholder="By sharing your experiences, you're helping other makes better choices and plan their dream home. Thank you.">
-				    	  </textarea>
-						</div>
+					<div class="form-group">
+                        <div class="row">
+                            <label for="type" class="col-lg-4">Property
+                                Description</label>
+                            <div class="col-lg-8">
+                                <textarea rows="5" class="form-control" th:field="*{description}"
+                                    placeholder="By sharing your experiences, you're helping other makes better choices and plan their dream home. Thank you.">
+                              </textarea>
+                            </div>
+                        </div>
 					</div>
 
 					<!-- <form th:object="${room}" method="post" modelArrtibute="room"> -->
 
-						<div class="form-group row">
-							<label for="type" class="col-sm-2 col-form-label">Room
-								Price</label>
-							<div class="col-sm-10">
-								<input type="text" class="form-control"
-									th:field="*{room.roomPrice}" placeholder="..."> </input>
-							</div>
+						<div class="form-group">
+                                <div class="row">
+                                <label for="type" class="col-lg-4">Room
+                                    Price</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control"
+                                        th:field="*{room.roomPrice}" placeholder="..."> </input>
+                                </div>
+                            </div>
 						</div>
 
-						<div class="form-group row">
-							<label for="type" class="col-sm-2 col-form-label">Utilities
-								Price</label>
-							<div class="col-sm-10">
-								<input type="text" class="form-control"
-									th:field="*{room.utilitiesPrice}" placeholder="..."> </input>
-							</div>
+						<div class="form-group">
+                            <div class="row">
+                                <label for="type" class="col-lg-4">Utilities
+                                    Price</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control"
+                                        th:field="*{room.utilitiesPrice}" placeholder="..."> </input>
+                                </div>
+                            </div>
 						</div>
 						<!-- Room type enum -->
-						<div class="form-group row">
-							<label for="type" class="col-sm-2 col-form-label">Room
-								Type</label>
-							<div class="col-sm-10">
-								<select th:field="*{room.roomType}">
-									<option
-										th:each="type: ${T(com.cs544.roommate.domain.RoomType).values()}"
-										th:text="${type}" th:value="${type}"></option>
-								</select>
-							</div>
+						<div class="form-group">
+                            <div class="row">
+                                <label for="type" class="col-lg-4">Room
+                                    Type</label>
+                                <div class="col-lg-8">
+                                    <select th:field="*{room.roomType}">
+                                        <option
+                                            th:each="type: ${T(com.cs544.roommate.domain.RoomType).values()}"
+                                            th:text="${type}" th:value="${type}"></option>
+                                    </select>
+                                </div>
+                            </div>
 						</div>
 
-						<div class="form-group row">
-							<label for="type" class="col-sm-2 col-form-label">Area
-								(sq.ft)</label>
-							<div class="col-sm-10">
-								<input type="text" class="form-control" th:field="*{room.area}"
-									placeholder="..."> </input>
-							</div>
+						<div class="form-group">
+                            <div class="row">
+                                <label for="type" class="col-lg-4">Area
+                                    (sq.ft)</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control" th:field="*{room.area}"
+                                        placeholder="..."> </input>
+                                </div>
+                            </div>
 						</div>
 						<!-- Option types 0 for not furnished -->
-						<div class="form-group row">
-							<label for="type" class="col-sm-2 col-form-label">Furnished
-								Status</label>
-							<div class="col-sm-10">
-								<input type="text" class="form-control" th:field="*{room.furnishedStatus}"
-									placeholder="..."> </input>
-							</div>
+						<div class="form-group">
+                            <div class="row">
+                                <label for="type" class="col-lg-4">Furnished
+                                    Status</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control" th:field="*{room.furnishedStatus}"
+                                        placeholder="..."> </input>
+                                </div>
+                            </div>
 						</div>
 
 						<!-- <div class="form-group row">
-							<label for="type" class="col-sm-2 col-form-label">Available
+							<label for="type" class="col-lg-4">Available
 								From</label>
-							<div class="col-sm-10">
+							<div class="col-lg-8">
 								<input type="date" class="form-control"
 									th:field="*{room.availableDate}"
 									placeholder="Summarize your stay or highlight an interesting detail">
@@ -123,15 +141,17 @@
 							</div>
 						</div> -->
 
-						<div class="form-group row">
-							<label for="type" class="col-sm-2 col-form-label">No. of
-								room mates</label>
-							<div class="col-sm-10">
-								<input type="text" class="form-control"
-									th:field="*{room.noOfRoommates}"
-									placeholder="Summarize your stay or highlight an interesting detail">
-								</input>
-							</div>
+						<div class="form-group">
+                            <div class="row">
+                                <label for="type" class="col-lg-4">No. of
+                                    room mates</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control"
+                                        th:field="*{room.noOfRoommates}"
+                                        placeholder="Summarize your stay or highlight an interesting detail">
+                                    </input>
+                                </div>
+                            </div>
 						</div>
 
 
@@ -141,42 +161,50 @@
 					<!-- <form th:object="${address}" method="post" modelArrtibute="address"> -->
 						<div>
 							Address :
-							<div class="form-group row">
-								<label for="type" class="col-sm-2 col-form-label">Street</label>
-								<div class="col-sm-10">
-									<input type="text" class="form-control"
-										th:field="*{address.street}" placeholder=".."> </input>
-								</div>
+							<div class="form-group">
+                                <div class="row">
+                                    <label for="type" class="col-lg-4">Street</label>
+                                    <div class="col-lg-8">
+                                        <input type="text" class="form-control"
+                                            th:field="*{address.street}" placeholder=".."> </input>
+                                    </div>
+                                </div>
 							</div>
 						</div>
-						<div class="form-group row">
-							<label for="type" class="col-sm-2 col-form-label">City</label>
-							<div class="col-sm-10">
+						<div class="form-group">
+                            <div class="row">
+							<label for="type" class="col-lg-4">City</label>
+							<div class="col-lg-8">
 								<input type="text" class="form-control"
 									th:field="*{address.city}" placeholder=".."> </input>
 							</div>
+                            </div>
 						</div>
-						<div class="form-group row">
-							<label for="type" class="col-sm-2 col-form-label">State</label>
-							<div class="col-sm-10">
+						<div class="form-group">
+                            <div class="row">
+							<label for="type" class="col-lg-4">State</label>
+							<div class="col-lg-8">
 								<input type="text" class="form-control"
 									th:field="*{address.state}" placeholder=".."> </input>
 							</div>
+                            </div>
 						</div>
-						<div class="form-group row">
-							<label for="type" class="col-sm-2 col-form-label">Zip</label>
-							<div class="col-sm-10">
+						<div class="form-group">
+                            <div class="row">
+							<label for="type" class="col-lg-4">Zip</label>
+							<div class="col-lg-8">
 								<input type="text" class="form-control"
 									th:field="*{address.zip}" placeholder=".."> </input>
 							</div>
+                            </div>
 						</div>
 					
 						
 					
 						<input type="submit"
-						class="btn btn-primary" value="Create" th:if="*{id} == 0" /> 
+						class="btn btn-info" value="Create" th:if="*{id} == 0" />
 						<input
-						type="submit" class="btn btn-primary" value="Update"
+						type="submit" class="btn btn-info" value="Update"
 						th:if="*{id} != 0" />
 						
 					<!-- </form> -->
